@@ -76,6 +76,21 @@ async function startServer() {
     console.log(`NPTEL Notes API running on port ${PORT}`);
     console.log(`Health check: http://localhost:${PORT}/api/health`);
     console.log(`Feedback endpoint: http://localhost:${PORT}/api/feedback`);
+
+    // Keep-alive self-ping every 10 minutes when deployed on Render
+    const serviceUrl = process.env.RENDER_EXTERNAL_URL;
+    if (serviceUrl) {
+      const TEN_MINUTES = 10 * 60 * 1000;
+      console.log(`Keep-alive active: pinging ${serviceUrl}/api/health every 10 minutes`);
+      setInterval(async () => {
+        try {
+          const res = await fetch(`${serviceUrl}/api/health`);
+          console.log(`[Keep-Alive] Pinged ${serviceUrl}/api/health (status: ${res.status})`);
+        } catch (err) {
+          console.warn('[Keep-Alive] Ping warning:', err.message);
+        }
+      }, TEN_MINUTES);
+    }
   });
 }
 

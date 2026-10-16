@@ -14,7 +14,7 @@ describe('Footer Component', () => {
     // GitHub Link
     const githubLink = screen.getByRole('link', { name: /GitHub Repo/i });
     expect(githubLink).toBeInTheDocument();
-    expect(githubLink).toHaveAttribute('href');
+    expect(githubLink).toHaveAttribute('href', 'https://github.com/Yuvi-97/NPTEL-Lecture-Notes');
     expect(githubLink).toHaveAttribute('target', '_blank');
 
     // Feedback button

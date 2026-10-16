@@ -29,7 +29,8 @@ function GithubIcon({ className = 'w-4 h-4' }) {
 export default function Footer() {
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const githubRepoUrl =
-    process.env.REACT_APP_GITHUB_REPO_URL || 'https://github.com';
+    process.env.REACT_APP_GITHUB_REPO_URL ||
+    'https://github.com/Yuvi-97/NPTEL-Lecture-Notes';
 
   return (
     <>
@@ -59,10 +60,9 @@ export default function Footer() {
               <span>Made with</span>
               <Heart
                 size={14}
-                className="mx-1.5 text-rose-500 fill-rose-500 inline-block animate-pulse"
+                className="ml-1.5 text-rose-500 fill-rose-500 inline-block animate-pulse"
                 aria-label="love"
               />
-              <span>for NPTEL Students</span>
             </div>
 
             {/* Actions: GitHub Repo & Feedback */}
