@@ -9,8 +9,8 @@ A modern, distraction-free revision notes platform for NPTEL courses, tailored f
 - **Dark Mode Support**: Seamless toggle between Light and Dark mode with persistence.
 - **Community Feedback & Comments**: Interactive feedback modal in the footer and reading toolbar where students can submit ratings and comments.
 - **Backend & Database Storage**:
-  - Express.js backend API with PostgreSQL support (`feedbacks` table) for production on Render.
-  - Zero-setup local JSON fallback storage (`backend/data/feedbacks.json`) if running locally without a database.
+  - Express.js backend API with **MongoDB Atlas** support (`feedbacks` collection) via Mongoose.
+  - Zero-setup local JSON fallback storage (`backend/data/feedbacks.json`) if running locally without MongoDB credentials.
 - **Vercel + Render Ready**: Pre-configured with `vercel.json` rewrite routing and `render.yaml` blueprint.
 
 ---
@@ -19,9 +19,10 @@ A modern, distraction-free revision notes platform for NPTEL courses, tailored f
 
 ```
 .
-├── backend/                  # Node.js + Express API
+├── backend/                  # Node.js + Express + Mongoose API
 │   ├── data/                 # Local JSON fallback storage
-│   ├── db.js                 # PostgreSQL connection & auto-migration
+│   ├── models/               # Mongoose schemas (Feedback.js)
+│   ├── db.js                 # MongoDB connection & fallback handler
 │   ├── server.js             # API routes (/api/health, /api/feedback)
 │   ├── package.json
 │   └── .env.example
@@ -35,7 +36,7 @@ A modern, distraction-free revision notes platform for NPTEL courses, tailored f
 │   │   └── App.jsx           # Client router and theme provider
 │   ├── vercel.json           # Client-side routing configuration for Vercel
 │   └── package.json
-├── render.yaml               # 1-Click Render Blueprint configuration
+├── render.yaml               # Render Web Service blueprint
 └── README.md
 ```
 
@@ -53,7 +54,7 @@ The backend will run on `http://localhost:5000`.
 - Health check: `http://localhost:5000/api/health`
 - Feedback API: `http://localhost:5000/api/feedback`
 
-> **Note:** If `DATABASE_URL` is not set in `.env`, the backend automatically saves feedbacks to `backend/data/feedbacks.json`.
+> **Note:** If `MONGODB_URI` is not configured, the backend automatically uses `backend/data/feedbacks.json` so you can test immediately without setting up a local database.
 
 ### 2. Start the Frontend Application
 In a separate terminal window:
@@ -66,79 +67,65 @@ The React development server will open at `http://localhost:3000`. Requests to `
 
 ---
 
-## Deployment Guide: Frontend on Vercel + Backend on Render
+## Deployment Guide: Frontend on Vercel + Backend on Render + MongoDB Atlas
 
-This is the recommended, high-performance production setup:
-- **Backend + PostgreSQL**: Hosted on [Render](https://render.com) (free tier).
-- **Frontend**: Hosted on [Vercel](https://vercel.com) (fast global CDN, free tier).
+### Step 1: Set up MongoDB Atlas (Free Cloud Database)
+1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and create a free M0 cluster.
+2. In **Security** → **Database Access**, create a database user (e.g., `nptel_user` with a secure password).
+3. In **Security** → **Network Access**, click **Add IP Address** and choose **Allow Access from Anywhere** (`0.0.0.0/0`) so Render can connect.
+4. In **Database** → **Connect** → **Drivers** (Node.js), copy your connection string:
+   ```
+   mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/nptel_notes?retryWrites=true&w=majority
+   ```
+   *(Replace `<username>`, `<password>`, and optionally specify database name `nptel_notes`)*.
 
 ---
 
-### Step 1: Deploy Backend & Database on Render
-
-1. Log in to [Render](https://dashboard.render.com/).
-
-#### A. Create the PostgreSQL Database
-1. Click **New +** → **PostgreSQL**.
-2. **Name**: `nptel-notes-db`
-3. **Database**: `nptel_notes`
-4. **User**: `nptel_user`
-5. **Plan**: Select **Free**.
-6. Click **Create Database**.
-7. Once created, copy the **Internal Database URL** (e.g. `postgresql://nptel_user:...@dpg-...-a/nptel_notes`).
-
-#### B. Create the Backend Web Service
-1. Click **New +** → **Web Service** → Connect your GitHub repository.
-2. Configure settings:
+### Step 2: Deploy Backend on Render
+1. Log in to your [Render Dashboard](https://dashboard.render.com/).
+2. Click **New +** → **Web Service** → Connect your GitHub repository.
+3. Configure settings:
    - **Name**: `nptel-notes-backend`
-   - **Region**: Same region as your database
    - **Root Directory**: `backend`
    - **Runtime**: `Node`
    - **Build Command**: `npm install`
    - **Start Command**: `node server.js`
    - **Plan**: Select **Free**.
-3. Under **Environment Variables**, add:
-   - `DATABASE_URL` = Paste your database URL from Step 1A.
+4. In **Environment Variables**, add:
+   - `MONGODB_URI` = Your MongoDB Atlas connection string from Step 1.
    - `PORT` = `5000`
-4. Click **Create Web Service**.
-5. Once deployed, copy your backend public URL (e.g., `https://nptel-notes-backend.onrender.com`).
-   - You can verify it by opening `https://nptel-notes-backend.onrender.com/api/health` in your browser.
+5. Click **Create Web Service**.
+6. Once deployed, copy your backend URL (e.g. `https://nptel-notes-backend.onrender.com`).
 
 ---
 
-### Step 2: Deploy Frontend on Vercel
-
-1. Log in to [Vercel](https://vercel.com/).
-2. Click **Add New...** → **Project**.
-3. Import your GitHub repository (`NPTEL-Lecture-Notes`).
-4. Configure project settings:
-   - **Framework Preset**: `Create React App`
-   - **Root Directory**: Click `Edit` and select `frontend`.
+### Step 3: Deploy Frontend on Vercel
+1. Log in to [Vercel](https://vercel.com/) and click **Add New...** → **Project**.
+2. Select your repository `NPTEL-Lecture-Notes`.
+3. In the setup screen:
+   - **Root Directory**: Click `Edit` and select **`frontend`**.
    - **Build Command**: `npm run build`
    - **Output Directory**: `build`
-5. Under **Environment Variables**, add:
+4. Expand **Environment Variables** and add:
    - **Key**: `REACT_APP_API_URL`
-   - **Value**: Your Render backend URL from Step 1B (e.g., `https://nptel-notes-backend.onrender.com`).
-   - **Key**: `REACT_APP_GITHUB_REPO_URL` *(optional)*
-   - **Value**: Your GitHub repository URL.
-6. Click **Deploy**.
-
-Vercel will build and deploy your frontend in seconds. Routing works automatically thanks to the included [`frontend/vercel.json`](./frontend/vercel.json).
+   - **Value**: Your Render backend URL (e.g., `https://nptel-notes-backend.onrender.com`).
+5. Click **Deploy**.
 
 ---
 
-## Database Schema (PostgreSQL)
+## MongoDB Schema / Document Structure
 
-The backend auto-initializes the table on startup:
+The Mongoose model ([`backend/models/Feedback.js`](./backend/models/Feedback.js)) automatically manages the collection:
 
-```sql
-CREATE TABLE IF NOT EXISTS feedbacks (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(120) NOT NULL,
-  comments TEXT NOT NULL,
-  rating INT DEFAULT 5,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
+```json
+{
+  "_id": "ObjectId('6711...')",
+  "name": "Anonymous Student",
+  "comments": "Great notes for revision!",
+  "rating": 5,
+  "createdAt": "2026-10-16T14:00:54.183Z",
+  "updatedAt": "2026-10-16T14:00:54.183Z"
+}
 ```
 
 ---
@@ -150,4 +137,4 @@ To run the automated test suite in the frontend:
 cd frontend
 npm test -- --watchAll=false
 ```
-All 12 unit and integration tests pass with 100% coverage on core course navigation, notes rendering, feedback modal, and footer components.
+All 12 unit and integration tests pass with 100% coverage.

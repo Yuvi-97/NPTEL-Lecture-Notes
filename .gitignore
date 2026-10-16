@@ -12,6 +12,7 @@ frontend/build/
 .env.development.local
 .env.test.local
 .env.production.local
+backend/.env.example
 backend/.env
 
 # Local storage data (except template/schema)

@@ -1,54 +1,38 @@
 const fs = require('fs');
 const path = require('path');
-const { Pool } = require('pg');
+const mongoose = require('mongoose');
+const Feedback = require('./models/Feedback');
 
-let pool = null;
-let isPostgres = false;
+let isMongoConnected = false;
 
-// Local fallback file path if DATABASE_URL is not configured
+// Local fallback file path if MONGODB_URI is not configured
 const localDataDir = path.join(__dirname, 'data');
 const localDataFile = path.join(localDataDir, 'feedbacks.json');
 
 // Initialize database
 async function initDB() {
-  const connectionString = process.env.DATABASE_URL;
+  const connectionString = process.env.MONGODB_URI;
 
-  if (connectionString) {
+  if (
+    connectionString &&
+    connectionString.trim() &&
+    !connectionString.includes('YOUR_MONGODB_CONNECTION_STRING_HERE')
+  ) {
     try {
-      console.log('Connecting to PostgreSQL database...');
-      const isLocalhost = connectionString.includes('localhost') || connectionString.includes('127.0.0.1');
-
-      pool = new Pool({
-        connectionString,
-        ssl: isLocalhost ? false : { rejectUnauthorized: false },
+      console.log('Connecting to MongoDB database...');
+      await mongoose.connect(connectionString, {
+        serverSelectionTimeoutMS: 5000,
       });
-
-      // Test connection
-      const client = await pool.connect();
-      console.log('Connected to PostgreSQL successfully.');
-
-      // Create table if not exists (Name, Comments, Rating, CreatedAt - no course)
-      const createTableQuery = `
-        CREATE TABLE IF NOT EXISTS feedbacks (
-          id SERIAL PRIMARY KEY,
-          name VARCHAR(120) NOT NULL,
-          comments TEXT NOT NULL,
-          rating INT DEFAULT 5,
-          created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-        );
-      `;
-      await client.query(createTableQuery);
-      client.release();
-      console.log('PostgreSQL "feedbacks" table is ready.');
-      isPostgres = true;
+      console.log('Connected to MongoDB successfully.');
+      isMongoConnected = true;
       return;
     } catch (err) {
-      console.error('PostgreSQL connection error, falling back to local file storage:', err.message);
+      console.error('MongoDB connection error, falling back to local file storage:', err.message);
     }
   }
 
   // Local fallback storage
-  console.log('Using local JSON storage for feedbacks (Set DATABASE_URL for PostgreSQL on Render).');
+  console.log('Using local JSON storage for feedbacks (Set MONGODB_URI in Render/environment for MongoDB Atlas).');
   if (!fs.existsSync(localDataDir)) {
     fs.mkdirSync(localDataDir, { recursive: true });
   }
@@ -63,14 +47,19 @@ async function saveFeedback({ name, comments, rating = 5 }) {
   const sanitizedComments = String(comments || '').trim().slice(0, 2000);
   const sanitizedRating = Math.max(1, Math.min(5, parseInt(rating, 10) || 5));
 
-  if (isPostgres && pool) {
-    const query = `
-      INSERT INTO feedbacks (name, comments, rating, created_at)
-      VALUES ($1, $2, $3, NOW())
-      RETURNING id, name, comments, rating, created_at as "createdAt";
-    `;
-    const res = await pool.query(query, [sanitizedName, sanitizedComments, sanitizedRating]);
-    return res.rows[0];
+  if (isMongoConnected) {
+    const doc = await Feedback.create({
+      name: sanitizedName,
+      comments: sanitizedComments,
+      rating: sanitizedRating,
+    });
+    return {
+      id: doc._id.toString(),
+      name: doc.name,
+      comments: doc.comments,
+      rating: doc.rating,
+      createdAt: doc.createdAt,
+    };
   }
 
   // Local file fallback
@@ -83,7 +72,7 @@ async function saveFeedback({ name, comments, rating = 5 }) {
   }
 
   const newItem = {
-    id: Date.now(),
+    id: Date.now().toString(),
     name: sanitizedName,
     comments: sanitizedComments,
     rating: sanitizedRating,
@@ -97,15 +86,19 @@ async function saveFeedback({ name, comments, rating = 5 }) {
 
 // Retrieve feedbacks
 async function getFeedbacks(limit = 20) {
-  if (isPostgres && pool) {
-    const query = `
-      SELECT id, name, comments, rating, created_at as "createdAt"
-      FROM feedbacks
-      ORDER BY created_at DESC
-      LIMIT $1;
-    `;
-    const res = await pool.query(query, [limit]);
-    return res.rows;
+  if (isMongoConnected) {
+    const docs = await Feedback.find()
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .lean();
+
+    return docs.map((doc) => ({
+      id: doc._id.toString(),
+      name: doc.name,
+      comments: doc.comments,
+      rating: doc.rating,
+      createdAt: doc.createdAt,
+    }));
   }
 
   // Local file fallback
@@ -122,5 +115,5 @@ module.exports = {
   initDB,
   saveFeedback,
   getFeedbacks,
-  isPostgres: () => isPostgres,
+  isMongoDB: () => isMongoConnected,
 };
