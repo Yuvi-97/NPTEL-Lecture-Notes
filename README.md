@@ -7,11 +7,11 @@ A modern, distraction-free revision notes platform for NPTEL courses, tailored f
 - **Concise Summaries**: Organized 12-week curriculum with ~3–5 minute reading summaries per lecture.
 - **Split-Screen Workspace**: Collapsible 12-week lecture outline on the left and reading canvas with markdown notes rendering on the right.
 - **Dark Mode Support**: Seamless toggle between Light and Dark mode with persistence.
-- **Community Feedback & Comments**: Interactive feedback modal in the footer and reading toolbar where students can submit ratings, comments, and topic requests.
+- **Community Feedback & Comments**: Interactive feedback modal in the footer and reading toolbar where students can submit ratings and comments.
 - **Backend & Database Storage**:
   - Express.js backend API with PostgreSQL support (`feedbacks` table) for production on Render.
   - Zero-setup local JSON fallback storage (`backend/data/feedbacks.json`) if running locally without a database.
-- **Production Ready for Render**: Pre-configured with `render.yaml` Infrastructure-as-Code blueprint.
+- **Vercel + Render Ready**: Pre-configured with `vercel.json` rewrite routing and `render.yaml` blueprint.
 
 ---
 
@@ -33,6 +33,7 @@ A modern, distraction-free revision notes platform for NPTEL courses, tailored f
 │   │   ├── notes/            # Markdown lecture notes (e.g. logistics)
 │   │   ├── services/         # Notes loader & API client
 │   │   └── App.jsx           # Client router and theme provider
+│   ├── vercel.json           # Client-side routing configuration for Vercel
 │   └── package.json
 ├── render.yaml               # 1-Click Render Blueprint configuration
 └── README.md
@@ -65,61 +66,64 @@ The React development server will open at `http://localhost:3000`. Requests to `
 
 ---
 
-## Deploying to Render (with PostgreSQL)
+## Deployment Guide: Frontend on Vercel + Backend on Render
 
-This repository includes a [`render.yaml`](./render.yaml) blueprint file that configures:
-1. **Free PostgreSQL Database**: `nptel-notes-db`
-2. **Backend Web Service**: `nptel-notes-backend`
-3. **Frontend Static Site**: `nptel-notes-frontend`
-
-### Option A: 1-Click Blueprint (Recommended)
-
-1. Push this project to your GitHub repository.
-2. Log in to [Render](https://render.com).
-3. In the Render Dashboard, click **New +** → **Blueprint**.
-4. Connect your GitHub repository.
-5. Render will detect [`render.yaml`](./render.yaml) and automatically create:
-   - The PostgreSQL database.
-   - The backend web service with `DATABASE_URL` connected.
-   - The frontend static site connected to the backend API.
-6. Click **Apply**. Render will build and deploy both services!
+This is the recommended, high-performance production setup:
+- **Backend + PostgreSQL**: Hosted on [Render](https://render.com) (free tier).
+- **Frontend**: Hosted on [Vercel](https://vercel.com) (fast global CDN, free tier).
 
 ---
 
-### Option B: Manual Setup on Render
+### Step 1: Deploy Backend & Database on Render
 
-If you prefer setting up services individually on the Render dashboard:
+1. Log in to [Render](https://dashboard.render.com/).
 
-#### Step 1: Create PostgreSQL Database
-1. In Render Dashboard, click **New +** → **PostgreSQL**.
-2. Name it `nptel-notes-db` and select the **Free** plan.
-3. Once created, copy the **Internal Database URL** (or External if connecting remotely).
+#### A. Create the PostgreSQL Database
+1. Click **New +** → **PostgreSQL**.
+2. **Name**: `nptel-notes-db`
+3. **Database**: `nptel_notes`
+4. **User**: `nptel_user`
+5. **Plan**: Select **Free**.
+6. Click **Create Database**.
+7. Once created, copy the **Internal Database URL** (e.g. `postgresql://nptel_user:...@dpg-...-a/nptel_notes`).
 
-#### Step 2: Deploy Backend Web Service
-1. Click **New +** → **Web Service** → Connect your repository.
-2. Set:
+#### B. Create the Backend Web Service
+1. Click **New +** → **Web Service** → Connect your GitHub repository.
+2. Configure settings:
+   - **Name**: `nptel-notes-backend`
+   - **Region**: Same region as your database
    - **Root Directory**: `backend`
+   - **Runtime**: `Node`
    - **Build Command**: `npm install`
    - **Start Command**: `node server.js`
+   - **Plan**: Select **Free**.
 3. Under **Environment Variables**, add:
-   - `DATABASE_URL` = Paste your database URL from Step 1.
+   - `DATABASE_URL` = Paste your database URL from Step 1A.
    - `PORT` = `5000`
-4. Click **Create Web Service**. Copy your backend URL (e.g. `https://nptel-notes-backend.onrender.com`).
+4. Click **Create Web Service**.
+5. Once deployed, copy your backend public URL (e.g., `https://nptel-notes-backend.onrender.com`).
+   - You can verify it by opening `https://nptel-notes-backend.onrender.com/api/health` in your browser.
 
-#### Step 3: Deploy Frontend Static Site
-1. Click **New +** → **Static Site** → Connect your repository.
-2. Set:
-   - **Root Directory**: `frontend`
-   - **Build Command**: `npm install && npm run build`
-   - **Publish Directory**: `build`
-3. Under **Environment Variables**, add:
-   - `REACT_APP_API_URL` = Your backend URL from Step 2 (e.g. `https://nptel-notes-backend.onrender.com`).
-   - `REACT_APP_GITHUB_REPO_URL` = Your GitHub repository link (optional).
-4. Under **Redirects/Rewrites**, add a rewrite:
-   - **Source**: `/*`
-   - **Destination**: `/index.html`
-   - **Action**: `Rewrite`
-5. Click **Create Static Site**.
+---
+
+### Step 2: Deploy Frontend on Vercel
+
+1. Log in to [Vercel](https://vercel.com/).
+2. Click **Add New...** → **Project**.
+3. Import your GitHub repository (`NPTEL-Lecture-Notes`).
+4. Configure project settings:
+   - **Framework Preset**: `Create React App`
+   - **Root Directory**: Click `Edit` and select `frontend`.
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `build`
+5. Under **Environment Variables**, add:
+   - **Key**: `REACT_APP_API_URL`
+   - **Value**: Your Render backend URL from Step 1B (e.g., `https://nptel-notes-backend.onrender.com`).
+   - **Key**: `REACT_APP_GITHUB_REPO_URL` *(optional)*
+   - **Value**: Your GitHub repository URL.
+6. Click **Deploy**.
+
+Vercel will build and deploy your frontend in seconds. Routing works automatically thanks to the included [`frontend/vercel.json`](./frontend/vercel.json).
 
 ---
 
@@ -132,7 +136,6 @@ CREATE TABLE IF NOT EXISTS feedbacks (
   id SERIAL PRIMARY KEY,
   name VARCHAR(120) NOT NULL,
   comments TEXT NOT NULL,
-  course VARCHAR(120) DEFAULT 'General',
   rating INT DEFAULT 5,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );

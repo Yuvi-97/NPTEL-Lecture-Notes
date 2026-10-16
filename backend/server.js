@@ -43,7 +43,7 @@ app.get('/api/feedback', async (req, res) => {
 // POST /api/feedback - Submit new feedback
 app.post('/api/feedback', async (req, res) => {
   try {
-    const { name, comments, course, rating } = req.body;
+    const { name, comments, rating } = req.body;
 
     if (!comments || !comments.trim()) {
       return res.status(400).json({
@@ -55,7 +55,6 @@ app.post('/api/feedback', async (req, res) => {
     const saved = await saveFeedback({
       name: name ? name.trim() : 'Anonymous Student',
       comments: comments.trim(),
-      course: course || 'General',
       rating: rating || 5,
     });
 

@@ -27,13 +27,12 @@ async function initDB() {
       const client = await pool.connect();
       console.log('Connected to PostgreSQL successfully.');
 
-      // Create table if not exists
+      // Create table if not exists (Name, Comments, Rating, CreatedAt - no course)
       const createTableQuery = `
         CREATE TABLE IF NOT EXISTS feedbacks (
           id SERIAL PRIMARY KEY,
           name VARCHAR(120) NOT NULL,
           comments TEXT NOT NULL,
-          course VARCHAR(120) DEFAULT 'General',
           rating INT DEFAULT 5,
           created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
         );
@@ -59,19 +58,18 @@ async function initDB() {
 }
 
 // Save a feedback entry
-async function saveFeedback({ name, comments, course = 'General', rating = 5 }) {
+async function saveFeedback({ name, comments, rating = 5 }) {
   const sanitizedName = String(name || '').trim().slice(0, 100) || 'Anonymous Student';
   const sanitizedComments = String(comments || '').trim().slice(0, 2000);
-  const sanitizedCourse = String(course || 'General').trim().slice(0, 100);
   const sanitizedRating = Math.max(1, Math.min(5, parseInt(rating, 10) || 5));
 
   if (isPostgres && pool) {
     const query = `
-      INSERT INTO feedbacks (name, comments, course, rating, created_at)
-      VALUES ($1, $2, $3, $4, NOW())
-      RETURNING id, name, comments, course, rating, created_at as "createdAt";
+      INSERT INTO feedbacks (name, comments, rating, created_at)
+      VALUES ($1, $2, $3, NOW())
+      RETURNING id, name, comments, rating, created_at as "createdAt";
     `;
-    const res = await pool.query(query, [sanitizedName, sanitizedComments, sanitizedCourse, sanitizedRating]);
+    const res = await pool.query(query, [sanitizedName, sanitizedComments, sanitizedRating]);
     return res.rows[0];
   }
 
@@ -88,7 +86,6 @@ async function saveFeedback({ name, comments, course = 'General', rating = 5 }) 
     id: Date.now(),
     name: sanitizedName,
     comments: sanitizedComments,
-    course: sanitizedCourse,
     rating: sanitizedRating,
     createdAt: new Date().toISOString(),
   };
@@ -102,7 +99,7 @@ async function saveFeedback({ name, comments, course = 'General', rating = 5 }) 
 async function getFeedbacks(limit = 20) {
   if (isPostgres && pool) {
     const query = `
-      SELECT id, name, comments, course, rating, created_at as "createdAt"
+      SELECT id, name, comments, rating, created_at as "createdAt"
       FROM feedbacks
       ORDER BY created_at DESC
       LIMIT $1;
