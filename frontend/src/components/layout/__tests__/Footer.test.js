@@ -10,6 +10,7 @@ describe('Footer Component', () => {
     expect(screen.getByText(/NPTEL Notes/i)).toBeInTheDocument();
     expect(screen.getByText(/Made with/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/love/i)).toBeInTheDocument();
+    expect(screen.getByText(/Yuvi/i)).toBeInTheDocument();
 
     // GitHub Link
     const githubLink = screen.getByRole('link', { name: /GitHub Repo/i });

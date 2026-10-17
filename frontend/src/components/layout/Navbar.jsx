@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Moon, Sun } from 'lucide-react';
-import IconContainer from '../ui/IconContainer';
+import { Moon, Sun } from 'lucide-react';
+import BrandLogo from '../ui/BrandLogo';
 
 /**
  * Compact, academic navigation bar.
@@ -17,10 +17,8 @@ export default function Navbar({ isDarkMode, onToggleTheme }) {
           className="flex items-center gap-3 group rounded-md p-1 -ml-1 transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-blue-500"
           aria-label="NPTEL Notes - Homepage"
         >
-          <IconContainer
-            icon={BookOpen}
-            size="sm"
-            variant="navy"
+          <BrandLogo
+            size="md"
             className="group-hover:scale-105 transition-transform"
           />
           <div className="flex flex-col">

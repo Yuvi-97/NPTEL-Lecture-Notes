@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { BookOpen, Heart, MessageSquare, ExternalLink } from 'lucide-react';
-import IconContainer from '../ui/IconContainer';
+import { Heart, MessageSquare, ExternalLink } from 'lucide-react';
+import BrandLogo from '../ui/BrandLogo';
 import FeedbackModal from '../feedback/FeedbackModal';
 
 /**
@@ -39,12 +39,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Brand & Purpose */}
             <div className="flex items-center gap-3">
-              <IconContainer
-                icon={BookOpen}
-                size="sm"
-                variant="slate"
-                className="dark:bg-slate-800 dark:border-slate-700"
-              />
+              <BrandLogo size="sm" />
               <div>
                 <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">
                   NPTEL Notes
@@ -55,14 +50,23 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Center: Made with Heart */}
+            {/* Center: Made with Heart Yuvi */}
             <div className="flex items-center justify-center text-xs text-slate-600 dark:text-slate-400">
               <span>Made with</span>
               <Heart
                 size={14}
-                className="ml-1.5 text-rose-500 fill-rose-500 inline-block animate-pulse"
+                className="mx-1.5 text-rose-500 fill-rose-500 inline-block animate-pulse"
                 aria-label="love"
               />
+              <a
+                href="https://github.com/Yuvi-97"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-slate-800 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                title="Yuvi's GitHub Profile"
+              >
+                Yuvi
+              </a>
             </div>
 
             {/* Actions: GitHub Repo & Feedback */}
