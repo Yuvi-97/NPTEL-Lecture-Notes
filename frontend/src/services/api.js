@@ -12,7 +12,17 @@ const getApiBaseUrl = () => {
     }
     return url.replace(/\/+$/, '');
   }
-  return ''; // Default to relative route (handled by CRA proxy in dev or reverse proxy in prod)
+
+  // Local development fallback (CRA proxy handles localhost:5000)
+  if (
+    typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ) {
+    return '';
+  }
+
+  // Production fallback: automatically connects to your live Render backend
+  return 'https://nptel-lecture-notes.onrender.com';
 };
 
 const API_BASE = getApiBaseUrl();

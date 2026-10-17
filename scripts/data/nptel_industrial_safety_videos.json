@@ -1,0 +1,422 @@
+[
+  {
+    "index": 1,
+    "week": "Week 1",
+    "title": "Lecture 1 : Introduction to Industrial Safety Engineering",
+    "videoId": "v-eltsixu4I",
+    "youtubeUrl": "https://www.youtube.com/watch?v=v-eltsixu4I"
+  },
+  {
+    "index": 2,
+    "week": "Week 1",
+    "title": "Lecture 2 : Key concepts and terminologies",
+    "videoId": "USGuag1Jids",
+    "youtubeUrl": "https://www.youtube.com/watch?v=USGuag1Jids"
+  },
+  {
+    "index": 3,
+    "week": "Week 1",
+    "title": "Lecture 3 : Key concepts and terminologies-Safety domain ontology",
+    "videoId": "MQ3xuV98wwM",
+    "youtubeUrl": "https://www.youtube.com/watch?v=MQ3xuV98wwM"
+  },
+  {
+    "index": 4,
+    "week": "Week 1",
+    "title": "Lecture 4 : Key concepts and terminologies-Risk Assessment & Control",
+    "videoId": "Uf4ipDw21H4",
+    "youtubeUrl": "https://www.youtube.com/watch?v=Uf4ipDw21H4"
+  },
+  {
+    "index": 5,
+    "week": "Week 1",
+    "title": "Lecture 5 : Safety Engineering & Accident causing mechanisms",
+    "videoId": "91YpCY-1Fy0",
+    "youtubeUrl": "https://www.youtube.com/watch?v=91YpCY-1Fy0"
+  },
+  {
+    "index": 6,
+    "week": "Week 2",
+    "title": "Lecture 6 : Preliminary Hazard List",
+    "videoId": "Q7TIXaqh3qk",
+    "youtubeUrl": "https://www.youtube.com/watch?v=Q7TIXaqh3qk"
+  },
+  {
+    "index": 7,
+    "week": "Week 2",
+    "title": "Lecture 7 : Preliminary Hazard Analysis",
+    "videoId": "qFFrYKE_c1o",
+    "youtubeUrl": "https://www.youtube.com/watch?v=qFFrYKE_c1o"
+  },
+  {
+    "index": 8,
+    "week": "Week 2",
+    "title": "Lecture 8 : Hazard and operability study (HAZOP)",
+    "videoId": "n1s1UB80JgA",
+    "youtubeUrl": "https://www.youtube.com/watch?v=n1s1UB80JgA"
+  },
+  {
+    "index": 9,
+    "week": "Week 2",
+    "title": "Lecture 9 : Failure Modes and Effects Analysis (FMEA)- Identification of Failure Modes",
+    "videoId": "6vR50hzznZk",
+    "youtubeUrl": "https://www.youtube.com/watch?v=6vR50hzznZk"
+  },
+  {
+    "index": 10,
+    "week": "Week 2",
+    "title": "Lecture 10 : Failure Modes and Effects Analysis (FMEA)-Continue",
+    "videoId": "1msifPYh_Mc",
+    "youtubeUrl": "https://www.youtube.com/watch?v=1msifPYh_Mc"
+  },
+  {
+    "index": 11,
+    "week": "Week 2",
+    "title": "Lecture 11 : Application of Hazard Identification Techniques",
+    "videoId": "Oa1WOxAx8lY",
+    "youtubeUrl": "https://www.youtube.com/watch?v=Oa1WOxAx8lY"
+  },
+  {
+    "index": 12,
+    "week": "Week 3",
+    "title": "Lecture 12 : FAULT TREE ANALYSIS (FTA)- Construction",
+    "videoId": "ZEShNJX3kcg",
+    "youtubeUrl": "https://www.youtube.com/watch?v=ZEShNJX3kcg"
+  },
+  {
+    "index": 13,
+    "week": "Week 3",
+    "title": "Lecture 13 : FAULT TREE ANALYSIS (FTA)- Gate by Gate method",
+    "videoId": "bzG8xGtj29U",
+    "youtubeUrl": "https://www.youtube.com/watch?v=bzG8xGtj29U"
+  },
+  {
+    "index": 14,
+    "week": "Week 3",
+    "title": "Lecture 14 : FAULT TREE ANALYSIS (FTA)- Cut-set method",
+    "videoId": "jamEeEWUa5s",
+    "youtubeUrl": "https://www.youtube.com/watch?v=jamEeEWUa5s"
+  },
+  {
+    "index": 15,
+    "week": "Week 3",
+    "title": "Lecture 15 : EVENT TREE ANALYSIS (ETA)",
+    "videoId": "222dZ6oKPyg",
+    "youtubeUrl": "https://www.youtube.com/watch?v=222dZ6oKPyg"
+  },
+  {
+    "index": 16,
+    "week": "Week 3",
+    "title": "Lecture 16 : FAULT TREE ANALYSIS : IMPORTANT MEASURES",
+    "videoId": "ikbC5_6qTvs",
+    "youtubeUrl": "https://www.youtube.com/watch?v=ikbC5_6qTvs"
+  },
+  {
+    "index": 17,
+    "week": "Week 4",
+    "title": "Lecture 17 : BOW-TIE TOOL",
+    "videoId": "ffJLn0e0Ixc",
+    "youtubeUrl": "https://www.youtube.com/watch?v=ffJLn0e0Ixc"
+  },
+  {
+    "index": 18,
+    "week": "Week 4",
+    "title": "Lecture 18 : Bow-tie: Common Cause Cut Sets",
+    "videoId": "Y7JEBfGKAwI",
+    "youtubeUrl": "https://www.youtube.com/watch?v=Y7JEBfGKAwI"
+  },
+  {
+    "index": 19,
+    "week": "Week 4",
+    "title": "Lecture 19 : Bow-tie: Cut-sets for Accident Scenarios",
+    "videoId": "qj6M6Q-Vqkw",
+    "youtubeUrl": "https://www.youtube.com/watch?v=qj6M6Q-Vqkw"
+  },
+  {
+    "index": 20,
+    "week": "Week 4",
+    "title": "Lecture 20 : Bow-tie: Cut-sets for Accident Scenarios (Cont.)",
+    "videoId": "i4L6yRuVf0I",
+    "youtubeUrl": "https://www.youtube.com/watch?v=i4L6yRuVf0I"
+  },
+  {
+    "index": 21,
+    "week": "Week 4",
+    "title": "Lecture 21 : Bow-tie: Identification of Safety Barriers",
+    "videoId": "iqXPtvUULKk",
+    "youtubeUrl": "https://www.youtube.com/watch?v=iqXPtvUULKk"
+  },
+  {
+    "index": 22,
+    "week": "Week 5",
+    "title": "Lecture 22 : Risk Assessment",
+    "videoId": "DxZ2rX0AtcM",
+    "youtubeUrl": "https://www.youtube.com/watch?v=DxZ2rX0AtcM"
+  },
+  {
+    "index": 23,
+    "week": "Week 5",
+    "title": "Lecture 23 : Consequence Assessment",
+    "videoId": "9SjcB7qZnpM",
+    "youtubeUrl": "https://www.youtube.com/watch?v=9SjcB7qZnpM"
+  },
+  {
+    "index": 24,
+    "week": "Week 5",
+    "title": "Lecture 24 : Energy Control Model and Hazard Control Hierarchy",
+    "videoId": "uCpAY0FxfEg",
+    "youtubeUrl": "https://www.youtube.com/watch?v=uCpAY0FxfEg"
+  },
+  {
+    "index": 25,
+    "week": "Week 5",
+    "title": "Lecture 25 : Safety Function Deployment",
+    "videoId": "j3SKq9TTnW8",
+    "youtubeUrl": "https://www.youtube.com/watch?v=j3SKq9TTnW8"
+  },
+  {
+    "index": 26,
+    "week": "Week 5",
+    "title": "Lecture 26 : Ranking of Design Solutions: AHP approach",
+    "videoId": "t6EYTHGlkKQ",
+    "youtubeUrl": "https://www.youtube.com/watch?v=t6EYTHGlkKQ"
+  },
+  {
+    "index": 27,
+    "week": "Week 6",
+    "title": "Lecture 27 : Quantification of Basic Events for Non-repairable Components",
+    "videoId": "6XP08vvRn_U",
+    "youtubeUrl": "https://www.youtube.com/watch?v=6XP08vvRn_U"
+  },
+  {
+    "index": 28,
+    "week": "Week 6",
+    "title": "Lecture 28 : Quantification of Basic Events - Hazard Rate",
+    "videoId": "RvWxh4Bk0lc",
+    "youtubeUrl": "https://www.youtube.com/watch?v=RvWxh4Bk0lc"
+  },
+  {
+    "index": 29,
+    "week": "Week 6",
+    "title": "Lecture 29 : Quantification of Basic Events - Exponential Distribution",
+    "videoId": "CQRk6nNX7iw",
+    "youtubeUrl": "https://www.youtube.com/watch?v=CQRk6nNX7iw"
+  },
+  {
+    "index": 30,
+    "week": "Week 6",
+    "title": "Lecture 30 : Quantification of Basic Events - Weibull Distribution",
+    "videoId": "05bndI0tNbs",
+    "youtubeUrl": "https://www.youtube.com/watch?v=05bndI0tNbs"
+  },
+  {
+    "index": 31,
+    "week": "Week 7",
+    "title": "Lecture 31 : Quantification of Basic Events: Failure to Repair Process",
+    "videoId": "IfiM8yxE4L4",
+    "youtubeUrl": "https://www.youtube.com/watch?v=IfiM8yxE4L4"
+  },
+  {
+    "index": 32,
+    "week": "Week 7",
+    "title": "Lecture 32 : Quantification of Basic Events For Repairable Components",
+    "videoId": "6PvI1-bWK20",
+    "youtubeUrl": "https://www.youtube.com/watch?v=6PvI1-bWK20"
+  },
+  {
+    "index": 33,
+    "week": "Week 7",
+    "title": "Lecture 33 : Quantification of Basic Events: Failure & Repair Intensities",
+    "videoId": "CSnTMqXm8y0",
+    "youtubeUrl": "https://www.youtube.com/watch?v=CSnTMqXm8y0"
+  },
+  {
+    "index": 34,
+    "week": "Week 7",
+    "title": "Lecture 34 : Computation of combined process parameters: Laplace transform analysis",
+    "videoId": "1pWyLksOpRA",
+    "youtubeUrl": "https://www.youtube.com/watch?v=1pWyLksOpRA"
+  },
+  {
+    "index": 35,
+    "week": "Week 7",
+    "title": "Lecture 35 : Computation of combined process parameters: Markov Analysis",
+    "videoId": "Tj-00rrQWzI",
+    "youtubeUrl": "https://www.youtube.com/watch?v=Tj-00rrQWzI"
+  },
+  {
+    "index": 36,
+    "week": "Week 8",
+    "title": "Lecture 36 : Systems Safety Quantification: Truth Table Approach",
+    "videoId": "kbBfJsPGuPw",
+    "youtubeUrl": "https://www.youtube.com/watch?v=kbBfJsPGuPw"
+  },
+  {
+    "index": 37,
+    "week": "Week 8",
+    "title": "Lecture 37 : Systems Safety Quantification: Truth Table Approach (Contd.)",
+    "videoId": "IE16t9AM68g",
+    "youtubeUrl": "https://www.youtube.com/watch?v=IE16t9AM68g"
+  },
+  {
+    "index": 38,
+    "week": "Week 8",
+    "title": "Lecture 38 : Systems Safety Quantification: Minimal Cut and Minimal Path Representation Using Structure Function",
+    "videoId": "hrmVGnUQLZg",
+    "youtubeUrl": "https://www.youtube.com/watch?v=hrmVGnUQLZg"
+  },
+  {
+    "index": 39,
+    "week": "Week 8",
+    "title": "Lecture 39 : Systems Safety Quantification: Structure Function",
+    "videoId": "jzN5FW8Knbw",
+    "youtubeUrl": "https://www.youtube.com/watch?v=jzN5FW8Knbw"
+  },
+  {
+    "index": 40,
+    "week": "Week 8",
+    "title": "Lecture 40 : Systems Safety Quantification: Tutorial",
+    "videoId": "Kf8aBXm3GtU",
+    "youtubeUrl": "https://www.youtube.com/watch?v=Kf8aBXm3GtU"
+  },
+  {
+    "index": 41,
+    "week": "Week 9",
+    "title": "Lecture 41 : Human Error, Classification and Causes",
+    "videoId": "_RU-XjaKWbg",
+    "youtubeUrl": "https://www.youtube.com/watch?v=_RU-XjaKWbg"
+  },
+  {
+    "index": 42,
+    "week": "Week 9",
+    "title": "Lecture 42 : Human Error, Classification and Causes (contd.)",
+    "videoId": "8pnWefN0-EA",
+    "youtubeUrl": "https://www.youtube.com/watch?v=8pnWefN0-EA"
+  },
+  {
+    "index": 43,
+    "week": "Week 9",
+    "title": "Lecture 43 : Human Error Identification",
+    "videoId": "oVbWrnPT9Y4",
+    "youtubeUrl": "https://www.youtube.com/watch?v=oVbWrnPT9Y4"
+  },
+  {
+    "index": 44,
+    "week": "Week 9",
+    "title": "Lecture 44 : Human Reliability Assessment",
+    "videoId": "-G29ebZh444",
+    "youtubeUrl": "https://www.youtube.com/watch?v=-G29ebZh444"
+  },
+  {
+    "index": 45,
+    "week": "Week 9",
+    "title": "Lecture 45 : Human Error Quantification from Experts’ opinions – Fuzzy Set Approach",
+    "videoId": "ZT_JGj8NKUU",
+    "youtubeUrl": "https://www.youtube.com/watch?v=ZT_JGj8NKUU"
+  },
+  {
+    "index": 46,
+    "week": "Week 10",
+    "title": "Lecture 46 : Accident Investigation",
+    "videoId": "VhuZ6M7a8N8",
+    "youtubeUrl": "https://www.youtube.com/watch?v=VhuZ6M7a8N8"
+  },
+  {
+    "index": 47,
+    "week": "Week 10",
+    "title": "Lecture 47 : Accident Investigation & Analysis: Descriptive Analytics",
+    "videoId": "SPDKEZBsydg",
+    "youtubeUrl": "https://www.youtube.com/watch?v=SPDKEZBsydg"
+  },
+  {
+    "index": 48,
+    "week": "Week 10",
+    "title": "Lecture 48 : Control Chart Analysis",
+    "videoId": "9HRd7WSWGHY",
+    "youtubeUrl": "https://www.youtube.com/watch?v=9HRd7WSWGHY"
+  },
+  {
+    "index": 49,
+    "week": "Week 10",
+    "title": "Lecture 49 : Accident Data Analysis: Regression",
+    "videoId": "uUbuLZAXuL0",
+    "youtubeUrl": "https://www.youtube.com/watch?v=uUbuLZAXuL0"
+  },
+  {
+    "index": 50,
+    "week": "Week 10",
+    "title": "Lecture 50 : Accident Data Analysis: Classification Tree",
+    "videoId": "rOsAwT6z-AM",
+    "youtubeUrl": "https://www.youtube.com/watch?v=rOsAwT6z-AM"
+  },
+  {
+    "index": 51,
+    "week": "Week 11",
+    "title": "Lecture 51 : Occupational Health & Safety Management Systems(OH&SMS) and OHSAS 18001-Part I",
+    "videoId": "Rr-xFmErOTk",
+    "youtubeUrl": "https://www.youtube.com/watch?v=Rr-xFmErOTk"
+  },
+  {
+    "index": 52,
+    "week": "Week 11",
+    "title": "Lecture 52 : Occupational Health & Safety Management Systems(OH&SMS) and OHSAS 18001-Part II",
+    "videoId": "n7oUOUCIblg",
+    "youtubeUrl": "https://www.youtube.com/watch?v=n7oUOUCIblg"
+  },
+  {
+    "index": 53,
+    "week": "Week 11",
+    "title": "Lecture 53 : Occupational Health & Safety Management Systems(OH&SMS) and OHSAS 18001-Part  III",
+    "videoId": "8GmIoIlsJ7w",
+    "youtubeUrl": "https://www.youtube.com/watch?v=8GmIoIlsJ7w"
+  },
+  {
+    "index": 54,
+    "week": "Week 11",
+    "title": "Lecture 54 : \"Safety Performance Indicators Part-I \"",
+    "videoId": "NI89F0ISMog",
+    "youtubeUrl": "https://www.youtube.com/watch?v=NI89F0ISMog"
+  },
+  {
+    "index": 55,
+    "week": "Week 11",
+    "title": "Lecture 55 : \"Safety Performance Indicators Part-II\"",
+    "videoId": "pwkjK0Zqa3w",
+    "youtubeUrl": "https://www.youtube.com/watch?v=pwkjK0Zqa3w"
+  },
+  {
+    "index": 56,
+    "week": "Week 11",
+    "title": "Lecture 56 : Energy Isolations",
+    "videoId": "_5ENnaPmjWs",
+    "youtubeUrl": "https://www.youtube.com/watch?v=_5ENnaPmjWs"
+  },
+  {
+    "index": 57,
+    "week": "Week 12",
+    "title": "Lecture 57 : Virtual Reality- Introduction",
+    "videoId": "DCQYBHz7RDs",
+    "youtubeUrl": "https://www.youtube.com/watch?v=DCQYBHz7RDs"
+  },
+  {
+    "index": 58,
+    "week": "Week 12",
+    "title": "Lecture 58 : Geometry of virtual world",
+    "videoId": "w6badCKzmXU",
+    "youtubeUrl": "https://www.youtube.com/watch?v=w6badCKzmXU"
+  },
+  {
+    "index": 59,
+    "week": "Week 12",
+    "title": "Lecture 59 : VR roadmap – A case study",
+    "videoId": "oR3PsHM3ULA",
+    "youtubeUrl": "https://www.youtube.com/watch?v=oR3PsHM3ULA"
+  },
+  {
+    "index": 60,
+    "week": "Week 12",
+    "title": "Lecture 60 : Summary",
+    "videoId": "rsMcTkN29yk",
+    "youtubeUrl": "https://www.youtube.com/watch?v=rsMcTkN29yk"
+  }
+]
