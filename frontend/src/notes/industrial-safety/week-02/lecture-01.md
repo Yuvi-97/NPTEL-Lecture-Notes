@@ -1,36 +1,64 @@
 # Week 2 – Lecture 1: Preliminary Hazard List
 
 ## 1. Key Concepts
-- **Engineering Lifecycle & Prevention through Design (PtD):** Systems progress through concept definition, design and development, production/operation (including maintenance), and disposal. Hazards are induced primarily during design and operation; identifying them early in the design stage maximizes built-in protection.
-- **Preliminary Hazard List (PHL):** The initial step in hazard identification used to compile an early comprehensive list of potential hazards across system components.
-- **System Breakdown Structure:** Deconstructing a system hierarchically (System $\rightarrow$ Subsystem $\rightarrow$ Sub-subsystem $\rightarrow$ Components/Parts) to identify hazards at granular levels and aggregate them to the system level.
+- **Preliminary Hazard List (PHL):** The initial, top-level hazard identification technique executed during the conceptual and early feasibility stages of a system lifecycle.
+  - *Primary Objective:* Identify, compile, and screen for major, high-level hazardous elements, hazardous energy sources, and catastrophic threats before detailed engineering design begins.
+- **Position in System Safety Lifecycle:** PHL is the first formal deliverable in the hazard analysis sequence. It serves as the direct foundation for the **Preliminary Hazard Analysis (PHA)**; hazards screened out or identified here guide early safety requirements and architectural trade-offs.
+- **Top-Level Mishap (TLM):** The ultimate catastrophic accident outcome that a system design seeks to prevent (e.g., vessel rupture, unconfined vapor cloud explosion, structural collapse, fatal electrocution).
+- **Hazard Theory Integration:** PHL identifies the dormant **Hazardous Element (HE)** and links it to candidate **Initiating Mechanisms (IM)** and vulnerable **Targets and Threats (TT)**.
+
+---
 
 ## 2. Important Points
-- **Input Requirements for PHL:**
-  - *Design Knowledge:* System breakdown, component functions, cross-functional dependencies, parameters, and operational sequences.
-  - *Hazard Knowledge:* Understanding hazardous elements, energy sources, initiating mechanisms, targets, and threats.
-  - *Lessons Learned:* Historical operational data, incident reports, and previous design inspections.
-- **PHL Implementation Steps:**
-  1. *Define the System:* Establish scope, boundaries, operational concepts, and major components.
-  2. *Plan for PHL:* Define goals, worksheets, schedules, and specific functions to evaluate.
-  3. *Select Team:* Multi-disciplinary team (design, operations, maintenance, safety, testing).
-  4. *Acquire Data:* Functional diagrams, operational sequences, and hazard checklists.
-  5. *Conduct PHL:* Compare hardware, software, energy sources, and functions against hazard checklists to identify failure states.
-  6. *Document & Recommend:* Fill the PHL worksheet and recommend design safety methods.
-- **PHL Worksheet Structure:** Contains System Element Type, Item Number, System Item Name, Hazard, Hazard Effects, and Comments/Operational Phase.
-- **Reference Checklists:** Kumamoto and Henley outline 22 hazardous energy sources (e.g., fuel, propellant, cryogenics, nuclear) alongside various hazardous processes and events (e.g., acceleration, contamination, corrosion).
+
+### The Nine Standard PHL Hazard Categories (Ericson System Safety Framework)
+To ensure comprehensive coverage during early conceptual design, PHL evaluates nine standard hazard categories:
+1. **Hazardous Energy Sources:** High electrical voltage, kinetic energy in high-speed rotating machinery, potential energy in elevated masses, high pneumatic/hydraulic pressure, and acoustic energy.
+2. **Hazardous Materials:** Flammable liquids and gases, toxic substances, pyrophoric materials, reactive chemicals, cryogens, carcinogens, and asphyxiants.
+3. **Mechanical and Physical Hazards:** Unshielded rotating shafts, pinch points, cutting edges, high-velocity projectile ejection, and mechanical fatigue.
+4. **Thermal Extremes:** Cryogenic cold surfaces, superheated steam lines, molten metal blast environments, and radiant heat sources.
+5. **Environmental and Climatic Hazards:** Seismic acceleration, lightning strikes, hurricane wind loads, flooding, extreme ambient humidity, and dust storms.
+6. **Human-Machine Interface & Ergonomic Hazards:** Incompatible control levers, confusing display layouts, poor operator visibility, extreme physical reach distances, and heavy manual lifting.
+7. **Software and Automated Logic Hazards:** Sensor communication latency, corrupted setpoint inputs, unhandled program exceptions, and unverified safety interlock overrides.
+8. **Interface & Co-Location Hazards:** Shared utility headers, adjacent high-pressure gas corridors, flammables stored near electrical sub-stations, and cross-contamination piping tie-ins.
+9. **Operational, Maintenance, and Disposal Hazards:** Inadequate Lockout/Tagout isolation provisions, lack of lifting lugs for heavy motors, confined space entry traps, and hazardous material dismantling risks.
+
+### Standard PHL Tabular Worksheet Structure
+A rigorous Preliminary Hazard List registers hazards in an 8-column structured table:
+- **Column 1 — Item No.:** Sequential index identifier.
+- **Column 2 — Hazard ID:** Alphanumeric identifier tracking the hazard across lifecycle documents.
+- **Column 3 — Hazard Category:** Classification chosen from the nine standard categories.
+- **Column 4 — Hazardous Element (HE):** The specific physical energy source or hazardous condition.
+- **Column 5 — Initiating Mechanism (IM):** The trigger event or operational failure mechanism.
+- **Column 6 — Target and Threat (TT):** The vulnerable personnel/equipment and the inflicted damage.
+- **Column 7 — Causal Factors:** Potential failure causes (component wear, operator error, software bug).
+- **Column 8 — Preliminary Mitigation Recommendation:** Early design-stage intervention or requirement.
+
+---
 
 ## 3. Differences / Examples
-### Context-Specific Hazard Identification Techniques
-| Technique | Primary Domain / Context | Level of Analysis |
+
+### PHL vs. Preliminary Hazard Analysis (PHA)
+| Dimension | Preliminary Hazard List (PHL) | Preliminary Hazard Analysis (PHA) |
 | :--- | :--- | :--- |
-| **HAZOP** | Process industries (continuous/chemical parameters: pressure, flow, temperature) | System / Subsystem / P&ID |
-| **FMEA** | Discrete machines, mechanical/electrical equipment (pumps, cranes, conveyors) | Component / Failure Mode |
-| **FTA** | Deductive root-cause analysis (top-level accident down to basic causal events) | System to Component causes |
-| **HTA / Human Error Analysis** | Operator/human intervention tasks | Human-machine interface |
-| **Petri Net** | Software systems and software sneak circuits | Software logic/states |
+| **Lifecycle Phase** | Concept & Feasibility stage | Preliminary / Detailed Design stage |
+| **Level of Detail** | Broad, high-level list of potential hazards | In-depth hazard causal scenario analysis |
+| **Risk Evaluation** | Qualitative screening only; no formal risk matrix ranking | Formally assigns **Severity Categories** and **Probability Levels** |
+| **Input Data** | System concept brief, basic process intent | Block diagrams, preliminary P&IDs, equipment specs |
+| **Primary Output** | Raw candidate list of hazards to be investigated | Risk Assessment Matrix ranking, design safety criteria |
+
+### Practical PHL Worksheet Demonstration: High-Pressure Gas Storage Facility
+| Item | Hazard ID | Category | Hazardous Element (HE) | Initiating Mechanism (IM) | Target & Threat (TT) | Preliminary Recommendation |
+| :---: | :---: | :--- | :--- | :--- | :--- | :--- |
+| **1** | H-01 | Hazardous Energy | $200\text{ bar}$ compressed nitrogen gas in storage bank | Overpressurization due to ambient solar heating and failed regulator | Tank shell rupture; projectile fragmentation impacting operators | Install certified spring-loaded pressure relief valve and shade canopy |
+| **2** | H-02 | Hazardous Material | Flammable solvent (toluene) in transfer piping | Flange gasket degradation and leak near open motor switch | Vapor cloud flash fire causing fatal burns to technicians | Specify spiral-wound metallic gaskets; mandate explosion-proof Class 1 Div 1 motors |
+| **3** | H-03 | Interface Hazard | High-voltage ($11\text{kV}$) cable routed adjacent to solvent line | Cable insulation failure causing electrical arc | Pipe ignition, solvent boiling liquid expanding vapor explosion (BLEVE) | Enforce physical spatial segregation ($>3\text{m}$) and install fire barrier trough |
+
+---
 
 ## 4. Must Remember
-- **50+ Hazard Identification Techniques:** Exist because applicability depends on system elements (human, machine, software, environment, process) and the required depth/level of analysis.
-- **Total System Composition:** Evaluates hardware, software, human operators, and environmental interactions.
-- **Full Hazard Enumeration:** Each entry in a PHL links back to the hazard components: *Hazardous Element + Initiating Mechanism + Target and Threat*.
+- **PHL is the first formal hazard identification tool** in system safety engineering, conducted during the conceptual phase before detailed P&IDs exist.
+- The primary purpose of PHL is **early hazard screening**: identifying major hazardous elements to establish baseline safety design requirements and eliminate hazards before design freeze.
+- PHL systematically evaluates **nine core hazard categories**, including hazardous energy, hazardous materials, thermal extremes, software, and co-located interface hazards.
+- A **hazard is not an accident**: PHL documents dormant physical conditions (Hazardous Element), potential trigger paths (Initiating Mechanism), and vulnerable assets (Target/Threat).
+- PHL does not perform detailed probability quantification; its direct successor, the **Preliminary Hazard Analysis (PHA)**, assigns formal MIL-STD-882D severity and probability ratings to the hazards listed in the PHL.
