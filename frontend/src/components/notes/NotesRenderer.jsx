@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
 /**
  * Renders lecture notes Markdown content with clean, study-optimized academic typography.
@@ -34,7 +37,8 @@ export default function NotesRenderer({ content, isLoading = false, error = null
   return (
     <article className="notes-prose max-w-none text-slate-800 dark:text-slate-200 leading-relaxed font-sans">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm, remarkMath]}
+        rehypePlugins={[rehypeKatex]}
         components={{
           h1: ({ node, children, ...props }) => (
             <h1

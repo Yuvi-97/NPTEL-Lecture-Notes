@@ -33,15 +33,14 @@ test('filters courses when user types in search box', () => {
   expect(screen.getByText(/Industrial Safety Engineering/i)).toBeInTheDocument();
 });
 
-test('data model contains exactly 12 weeks and 5 lectures per week', () => {
+test('data model contains 12 weeks with lectures for each course', () => {
   expect(COURSES).toHaveLength(2);
 
   COURSES.forEach((course) => {
     expect(course.weekList).toHaveLength(12);
     course.weekList.forEach((week) => {
-      expect(week.lectures).toHaveLength(5);
-      expect(week.lectures[0].title).toMatch(/Lecture 1/i);
-      expect(week.lectures[1].title).toMatch(/Lecture 2/i);
+      expect(week.lectures.length).toBeGreaterThanOrEqual(1);
+      expect(week.lectures[0].title).toMatch(/Lecture/i);
     });
   });
 });

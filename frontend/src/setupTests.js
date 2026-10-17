@@ -15,3 +15,5 @@ jest.mock('react-markdown', () => {
 });
 
 jest.mock('remark-gfm', () => () => {});
+jest.mock('remark-math', () => () => {});
+jest.mock('rehype-katex', () => () => {});
