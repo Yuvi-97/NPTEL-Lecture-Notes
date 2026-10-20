@@ -30,7 +30,7 @@ The lecture outlines explicit quantitative formulas across four operational doma
 
 4. **Freight Cost per Mile:**
    $$\text{Cost per Mile} = \frac{\text{Total Freight Expenses}}{\text{Total Miles Traveled}}$$
-   *(Benchmark cited: $\approx \$1.34\text{ per mile}$ depending on transport mode and cargo density).*
+   *(Benchmark cited: $\approx 1.34\text{ USD per mile}$ depending on transport mode and cargo density).*
 
 #### B. Warehousing and Inventory KPIs
 1. **Average Cost per Order Processed:**

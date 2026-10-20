@@ -37,8 +37,8 @@ A sophisticated weighted averaging technique that requires storing only three da
 $$F_{t+1} = F_t + \alpha (A_t - F_t) = \alpha A_t + (1 - \alpha) F_t$$
 
 - *The Role of $\alpha$:*
-  - High $\alpha$ (e.g., $0.7\text{–}0.9$): Highly responsive to recent demand fluctuations; ideal for volatile, innovative products.
-  - Low $\alpha$ (e.g., $0.1\text{–}0.3$): Highly stable; filters out random blips; ideal for mature, steady commodity goods.
+  - High $\alpha$ (e.g., $0.7\text{-}0.9$): Highly responsive to recent demand fluctuations; ideal for volatile, innovative products.
+  - Low $\alpha$ (e.g., $0.1\text{-}0.3$): Highly stable; filters out random blips; ideal for mature, steady commodity goods.
 
 #### 4. Linear Regression Trend Projection
 Models linear long-term demand growth over time:

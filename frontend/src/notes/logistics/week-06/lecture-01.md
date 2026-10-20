@@ -73,5 +73,5 @@ Pioneered by Hau Lee, the lecture identifies the four structural root causes:
 - The Hau Lee framework identifies four supply chain archetypes: **Efficient (Low/Low), Risk-Hedging (Low Demand/High Supply), Responsive (High Demand/Low Supply), and Agile (High/High)**.
 - The **Bullwhip Effect** causes demand variance to amplify exponentially as it moves upstream toward raw material suppliers.
 - The four root causes of the Bullwhip Effect are: **Demand Forecast Updating, Order Batching, Price Fluctuations (Forward Buying), and Rationing/Shortage Gaming**.
-- In the Bullwhip Effect, small retail demand shifts (e.g., $\pm 5\%$) can trigger swings of $\pm 40\%\text{–}100\%$ at Tier-2 raw material supplier tiers.
+- In the Bullwhip Effect, small retail demand shifts (e.g., $\pm 5\%$) can trigger swings of $\pm 40\%\text{-}100\%$ at Tier-2 raw material supplier tiers.
 - The most effective operational antidote to the Bullwhip Effect is **sharing transparent Point-of-Sale (POS) data** across all tiers using CPFR and adopting **Everyday Low Pricing (EDLP)**.

@@ -70,11 +70,11 @@ Low   │                 / (Efficient Chain for Functional Goods)
 
 | Product Attribute | Functional Products (e.g., Salt, Milk, Soap) | Innovative Products (e.g., Smartphones, Fashion) |
 |---|---|---|
-| **Demand Predictability** | Highly predictable, low forecast error ($< 10\%$). | Highly unpredictable, high forecast error ($40\%\text{–}100\%$). |
+| **Demand Predictability** | Highly predictable, low forecast error ($< 10\%$). | Highly unpredictable, high forecast error ($40\%\text{-}100\%$). |
 | **Product Lifecycle** | Long ($> 2\text{ to } 5\text{ years}$). | Ultra-short ($3\text{ to } 12\text{ months}$). |
-| **Profit Margin** | Low per unit ($5\%\text{–}10\%$). | High per unit ($20\%\text{–}50\%+$). |
+| **Profit Margin** | Low per unit ($5\%\text{-}10\%$). | High per unit ($20\%\text{-}50\%+$). |
 | **End-of-Season Markdown**| Minimal or zero. | High ($10\%\text{ to } 30\%\text{ of total inventory}$). |
-| **Stockout Rate** | Very low ($1\%\text{–}2\%$). | Very high ($10\%\text{–}40\%$). |
+| **Stockout Rate** | Very low ($1\%\text{-}2\%$). | Very high ($10\%\text{-}40\%$). |
 | **Optimal Supply Chain** | **Efficient (Cost-Focused) Supply Chain**. | **Responsive (Speed-Focused) Supply Chain**. |
 
 ---

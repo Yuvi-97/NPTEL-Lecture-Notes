@@ -82,32 +82,40 @@ $$w = \begin{bmatrix} w_C \\ w_R \\ w_M \\ w_O \end{bmatrix} = \begin{bmatrix} 0
 #### Step 2: Evaluation of Alternatives under Cost Criterion
 The $5 \times 5$ pairwise comparison matrix for the 5 design alternatives with respect to Cost is:
 
-$$A_{\text{Cost}} = \begin{bmatrix} 
+$$
+A_{\text{Cost}} = \begin{bmatrix} 
 1.00 & 0.33 & 0.33 & 0.20 & 0.20 \\
 3.00 & 1.00 & 1.00 & 0.33 & 0.33 \\
 3.00 & 1.00 & 1.00 & 0.33 & 0.33 \\
 5.00 & 3.00 & 3.00 & 1.00 & 1.00 \\
 5.00 & 3.00 & 3.00 & 1.00 & 1.00 
-\end{bmatrix}$$
+\end{bmatrix}
+$$
 
 1. **Column Sums:** $[17.00, \; 8.33, \; 8.33, \; 2.86, \; 2.86]$.
 2. **Column Normalization & Row Averaging:**
    Dividing each entry by its column sum and computing row averages yields the local priority vector under Cost ($x_C$):
-   $$x_C = \begin{bmatrix} 
+   $$
+   x_C = \begin{bmatrix} 
    x_{DS1} \\ x_{DS2} \\ x_{DS3} \\ x_{DS4} \\ x_{DS5} 
    \end{bmatrix} = \begin{bmatrix} 
    0.06 \\ 0.13 \\ 0.13 \\ 0.34 \\ 0.34 
-   \end{bmatrix}$$
+   \end{bmatrix}
+   $$
 
 3. **Consistency Verification for Matrix $A_{\text{Cost}}$:**
    - Multiplying $A_{\text{Cost}} \times x_C$ yields the product vector, giving $\lambda$ values across rows: $[5.00, 5.04, 5.04, 5.08, 5.08]$.
    - Average Principal Eigenvalue: $\lambda_{\max} \approx 5.05$.
    - Matrix size: $n = 5$.
    - Consistency Index:
-     $$CI = \frac{\lambda_{\max} - n}{n - 1} = \frac{5.05 - 5}{5 - 1} = \frac{0.05}{4} = 0.0125$$
+     $$
+     CI = \frac{\lambda_{\max} - n}{n - 1} = \frac{5.05 - 5}{5 - 1} = \frac{0.05}{4} = 0.0125
+     $$
    - From the $RI$ table for $n = 5$, $RI = 1.12$.
    - Consistency Ratio:
-     $$CR = \frac{CI}{RI} = \frac{0.0125}{1.12} \approx 0.011 < 0.10$$
+     $$
+     CR = \frac{CI}{RI} = \frac{0.0125}{1.12} \approx 0.011 < 0.10
+     $$
    *Since $CR = 1.1\% \ll 10\%$, the matrix is strictly consistent and accepted.*
 
 ---

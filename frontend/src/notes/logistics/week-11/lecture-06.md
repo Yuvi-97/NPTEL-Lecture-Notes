@@ -39,7 +39,7 @@ An enterprise must cultivate five synchronized pillars (*Mnemonic: **ICODE***):
 ### Indian Logistics Landscape & Vision 2030 (CII Conclave Insights)
 - **Macroeconomic Significance:** Indian logistics is growing at an annual Compound Annual Growth Rate (CAGR) of $10.5\%$, supported by massive domestic consumer demand and supplier scale.
 - **The Competitiveness Gap:**
-  $$\text{Logistics Competitiveness Gap} \approx \$180 \text{ Billion USD}$$
+  $$\text{Logistics Competitiveness Gap} \approx 180 \text{ Billion USD}$$
   - Developed economies spend $\approx 8\%$ of their Gross Domestic Product (GDP) on logistics.
   - India historically expends $\approx 12\% - 14\%$ of GDP on logistics ($\approx 5\% - 6\%$ structural inefficiency).
   - Vision 2030 Target: Reduce national logistics expenditure to international benchmark levels ($\approx 8\%$).
@@ -85,6 +85,6 @@ Circular Economy:
 - According to McKinsey research, **AI-driven forecasting reduces supply chain errors by up to $50\%$**.
 - **Digital twins** replicate physical assets, logistics corridors, and facilities in a virtual environment to simulate disruptions and test contingency responses without risking live operations.
 - The **Circular Economy** replaces the unsustainable "Take-Make-Dispose" model by keeping materials at their highest utility through reuse, remanufacturing, and cross-industry byproduct valorization.
-- India spends **$12\% - 14\%$ of GDP on logistics**, compared to $\approx 8\%$ in developed nations, generating a **$\$180$ billion competitiveness gap** targeted by National Vision 2030.
+- India spends **$12\% - 14\%$ of GDP on logistics**, compared to $\approx 8\%$ in developed nations, generating a **\$180 billion competitiveness gap** targeted by National Vision 2030.
 - India's logistics modal mix is heavily skewed toward **road transport ($64\%$)**, with rail freight running at an average speed of only **$20 - 25\text{ km/h}$** due to mixed-traffic line congestion.
 - In modern supply chain management, total profit is measured as **overall supply chain surplus**, which must be maximized and equitably shared across all network stakeholders.

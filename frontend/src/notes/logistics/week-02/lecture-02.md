@@ -41,7 +41,7 @@ International shipping involves a complex multi-party ecosystem:
 
 ### Mechanics of Currency Fluctuations in Global Trade
 Fluctuations in foreign exchange rates directly alter import-export profitability margins:
-- *Baseline Scenario:* Assume an exchange rate of $1\text{ Euro } (€) = 100\text{ INR (Rs.)}$.
+- *Baseline Scenario:* Assume an exchange rate of $1\text{ Euro} = 100\text{ INR}$ (€1 = Rs. 100).
 - **Scenario A: Domestic Currency Depreciates ($1\text{ Euro} = 105\text{ INR}$):**
   - *Importer Impact:* The domestic importer must now pay **Rs. 105** for the same €1 item (Rs. 5 extra cost), reducing import profitability and suppressing domestic import demand.
   - *Exporter Impact:* The domestic exporter receives **Rs. 105** upon converting €1 foreign revenue (Rs. 5 bonus), increasing export profit margins and enhancing global price competitiveness.

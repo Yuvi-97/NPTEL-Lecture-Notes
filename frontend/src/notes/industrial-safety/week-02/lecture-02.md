@@ -17,7 +17,7 @@
 Consequences are classified into four discrete ordinal categories based on potential casualty level and asset damage:
 - **Category I — Catastrophic:**
   - *Personnel Impact:* Fatality, permanent total disability, or widespread irreversible public health crisis.
-  - *Asset & Environmental Loss:* Complete system destruction, plant loss ($>\$10\text{M}$ damage), or severe long-term environmental contamination.
+  - *Asset & Environmental Loss:* Complete system destruction, plant loss (> $10M damage), or severe long-term environmental contamination.
 - **Category II — Critical:**
   - *Personnel Impact:* Severe bodily injury, severe occupational illness resulting in permanent partial disability or hospitalization of multiple workers.
   - *Asset & Environmental Loss:* Major system damage requiring extended plant shutdown, or reversible environmental violation.

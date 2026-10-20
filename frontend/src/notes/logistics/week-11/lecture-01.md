@@ -22,7 +22,7 @@
    - $\text{Annual Ordering Cost} = \left(\frac{D}{Q}\right) S$ (where $\frac{D}{Q}$ represents the number of orders per year).
 3. **Holding / Carrying Cost ($H$ or $h \cdot C$):**
    - The financial cost incurred to maintain one unit of inventory in storage for one year.
-   - Includes capital cost (interest on tied-up working capital $\approx 15\%–25\%$), warehouse rent, utilities, refrigeration, insurance, property taxes, shrinkage, theft, and obsolescence.
+   - Includes capital cost (interest on tied-up working capital $\approx 15\%-25\%$), warehouse rent, utilities, refrigeration, insurance, property taxes, shrinkage, theft, and obsolescence.
    - $\text{Annual Holding Cost} = \left(\frac{Q}{2}\right) H$ (where $\frac{Q}{2}$ represents the average cycle inventory).
 4. **Shortage / Stockout Cost:**
    - The penalty cost incurred when stock runs out: lost profit margins, customer churn, expedited air freight, and factory shutdown penalties.

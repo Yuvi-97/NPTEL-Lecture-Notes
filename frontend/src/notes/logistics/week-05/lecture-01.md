@@ -66,8 +66,8 @@ The lecture traces how corporate operations transitioned across three eras:
   - Assembly and testing at the focal plant costs **\$150**.
   - Inbound and outbound logistics across the network costs **\$100**.
   - Retail distribution and merchandising costs **\$100**.
-- **Total System Cost** $= 400 + 150 + 100 + 100 = \$750$.
-- **Supply Chain Surplus** $= \$1,000 - \$750 = \$250$.
+- **Total System Cost** $= 400 + 150 + 100 + 100 = \text{USD } 750$.
+- **Supply Chain Surplus** $= 1,000 - 750 = \text{USD } 250$.
 - Under modern SCM, this \$250 surplus is shared among suppliers, manufacturer, and distributor. If poor logistics causes a \$150 transit delay, total surplus shrinks to \$100, threatening the financial health of all nodes.
 
 ---

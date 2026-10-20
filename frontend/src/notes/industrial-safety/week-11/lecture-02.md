@@ -20,7 +20,7 @@
 - **Direct vs. Indirect Accident Costs (The Cost Iceberg):**
   - *Direct Costs:* Insured medical treatment expenses, workers' compensation payouts, and immediate hospital bills.
   - *Indirect Costs:* Uninsured losses, including legal fees, accident investigation hours, production downtime, plant cleanup, machinery repair, replacement worker training, diminished workforce morale, and corporate reputational damage.
-  - *Cost Multiplier:* For every $\$1$ (or $£1$) of direct cost, indirect costs range between **$8$ to $36$ times** higher depending on industry complexity and legal jurisdiction.
+  - *Cost Multiplier:* For every \$1 (or £1) of direct cost, indirect costs range between **8 to 36 times** higher depending on industry complexity and legal jurisdiction.
 
 ### 2.2 Historical Evolution and Limitations of Accident Causation Models
 1. **Heinrich's Domino Theory and Safety Pyramid (1931):**
@@ -117,7 +117,7 @@ The standard structures organizational safety governance into the continuous **P
 | Cost Category | Direct Costs (Insured) | Indirect Costs (Uninsured) |
 | :--- | :--- | :--- |
 | **Components** | • Emergency medical transport<br>• Hospital treatment fees<br>• Statutory workers' compensation | • Accident investigation man-hours<br>• Production line downtime & lost capacity<br>• Equipment repair / replacement<br>• Legal defense costs & fines<br>• Training replacement personnel<br>• Damaged reputation & lost business contracts |
-| **Financial Ratio** | $\$1$ baseline | **$\$8$ to $\$36$** (800% to 3600% higher) |
+| **Financial Ratio** | \$1 baseline | **\$8 to \$36** (800% to 3600% higher) |
 | **Analogy** | The visible tip of an iceberg above the waterline. | The massive, hidden submerged mass of the iceberg. |
 
 ---

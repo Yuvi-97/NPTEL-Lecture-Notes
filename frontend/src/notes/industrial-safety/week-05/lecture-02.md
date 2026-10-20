@@ -97,19 +97,19 @@ Quantified via the **Environmental Consequence Index (ECI)**:
 ### 3.2 Worked Numerical Example: Asset Loss with the Lang Factor
 
 A chemical reactor bay experiences an overpressure vapor cloud explosion. Damage mapping identifies two major processing assets located within the blast radius ($x_1 = 1, x_2 = 1$):
-- **Asset 1 (Distillation Column):** Original cost $C_1 = \$500,000$; age $t_1 = 5\text{ years}$; annual depreciation $d_1 = 10\%$ ($0.10$); inflation $r_1 = 5\%$ ($0.05$).
-- **Asset 2 (Heat Exchanger):** Original cost $C_2 = \$200,000$; age $t_2 = 3\text{ years}$; annual depreciation $d_2 = 10\%$ ($0.10$); inflation $r_2 = 5\%$ ($0.05$).
+- **Asset 1 (Distillation Column):** Original cost $C_1 = 500,000\text{ USD}$; age $t_1 = 5\text{ years}$; annual depreciation $d_1 = 10\%$ ($0.10$); inflation $r_1 = 5\%$ ($0.05$).
+- **Asset 2 (Heat Exchanger):** Original cost $C_2 = 200,000\text{ USD}$; age $t_2 = 3\text{ years}$; annual depreciation $d_2 = 10\%$ ($0.10$); inflation $r_2 = 5\%$ ($0.05$).
 - **Plant Lang Factor:** $L = 4.0$ (installed piping, structural steel, and instrumentation cost $4\times$ the bare equipment).
 
 #### Calculation:
 1. **Replacement Cost Calculation (Adjusted for Inflation and Lang Factor):**
    - For Asset 1:
-     $$\text{Repl}_1 = C_1 (1 + r_1)^{t_1} \cdot L = 500,000 \times (1.05)^5 \times 4.0 = 500,000 \times 1.2763 \times 4.0 = \$2,552,600$$
+     $$\text{Repl}_1 = C_1 (1 + r_1)^{t_1} \cdot L = 500,000 \times (1.05)^5 \times 4.0 = 500,000 \times 1.2763 \times 4.0 = \text{USD } 2,552,600$$
    - For Asset 2:
-     $$\text{Repl}_2 = C_2 (1 + r_2)^{t_2} \cdot L = 200,000 \times (1.05)^3 \times 4.0 = 200,000 \times 1.1576 \times 4.0 = \$926,080$$
+     $$\text{Repl}_2 = C_2 (1 + r_2)^{t_2} \cdot L = 200,000 \times (1.05)^3 \times 4.0 = 200,000 \times 1.1576 \times 4.0 = \text{USD } 926,080$$
 2. **Total Installed Replacement Loss:**
-   $$L_A \approx \$2,552,600 + \$926,080 = \mathbf{\$3,478,680}$$
-*Takeaway:* While bare purchase cost of the destroyed hardware was only $\$700,000$, the true economic asset loss exceeds $\$3.47\text{ million}$ once structural installation, piping, and the Lang Factor are properly accounted for.
+   $$L_A \approx \text{USD } 2,552,600 + 926,080 = \mathbf{\text{USD } 3,478,680}$$
+*Takeaway:* While bare purchase cost of the destroyed hardware was only $700,000, the true economic asset loss exceeds $3.47\text{ million}$ once structural installation, piping, and the Lang Factor are properly accounted for.
 
 ---
 

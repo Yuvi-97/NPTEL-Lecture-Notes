@@ -44,13 +44,13 @@ The lecture establishes four major classification matrices for selective warehou
 
 #### 1. ABC Analysis (Annual Dollar Usage)
 - **Class A Items (Vital Financial Focus):**
-  - Accounts for **$\approx 70\%–80\%$ of total annual dollar spend**, but only **$\approx 10\%–20\%$ of total SKUs**.
+  - Accounts for **$\approx 70\%-80\%$ of total annual dollar spend**, but only **$\approx 10\%-20\%$ of total SKUs**.
   - *Management:* Tight daily control, continuous review, JIT delivery, minimal safety stocks, senior executive sign-offs.
 - **Class B Items (Moderate Financial Focus):**
-  - Accounts for **$\approx 15\%–20\%$ of annual dollar spend** and **$\approx 30\%$ of SKUs**.
+  - Accounts for **$\approx 15\%-20\%$ of annual dollar spend** and **$\approx 30\%$ of SKUs**.
   - *Management:* Periodic review, moderate safety buffers, standard automated purchase orders.
 - **Class C Items (Low Financial Focus / Bulk SKUs):**
-  - Accounts for only **$\approx 5\%–10\%$ of total annual spend**, yet comprises **$\approx 50\%$ of physical SKUs**.
+  - Accounts for only **$\approx 5\%-10\%$ of total annual spend**, yet comprises **$\approx 50\%$ of physical SKUs**.
   - *Management:* Simple visual control (e.g., Two-Bin System), large order batches, generous safety stock buffers.
 
 #### 2. VED Analysis (Operational Criticality for Spare Parts)
