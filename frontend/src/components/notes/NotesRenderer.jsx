@@ -34,36 +34,66 @@ export default function NotesRenderer({ content, isLoading = false, error = null
     );
   }
 
+  // Helper to generate slug IDs for anchor linking
+  const getHeadingId = (children) => {
+    if (!children) return '';
+    const extractText = (item) => {
+      if (typeof item === 'string') return item;
+      if (Array.isArray(item)) return item.map(extractText).join('');
+      if (item?.props?.children) return extractText(item.props.children);
+      return '';
+    };
+    const raw = extractText(children);
+    return raw
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '')
+      .trim()
+      .replace(/\s+/g, '-');
+  };
+
   return (
     <article className="notes-prose max-w-none text-slate-800 dark:text-slate-200 leading-relaxed font-sans">
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkMath]}
         rehypePlugins={[rehypeKatex]}
         components={{
-          h1: ({ node, children, ...props }) => (
-            <h1
-              className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight pb-3 mb-6 border-b border-slate-200 dark:border-slate-800"
-              {...props}
-            >
-              {children}
-            </h1>
-          ),
-          h2: ({ node, children, ...props }) => (
-            <h2
-              className="text-lg sm:text-xl font-bold text-blue-950 dark:text-blue-300 mt-8 mb-3 flex items-center gap-2"
-              {...props}
-            >
-              {children}
-            </h2>
-          ),
-          h3: ({ node, children, ...props }) => (
-            <h3
-              className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100 mt-6 mb-2"
-              {...props}
-            >
-              {children}
-            </h3>
-          ),
+          h1: ({ node, children, ...props }) => {
+            const id = props.id || getHeadingId(children);
+            return (
+              <h1
+                id={id}
+                className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight pb-3 mb-6 border-b border-slate-200 dark:border-slate-800 scroll-mt-20"
+                {...props}
+              >
+                {children}
+              </h1>
+            );
+          },
+          h2: ({ node, children, ...props }) => {
+            const id = props.id || getHeadingId(children);
+            return (
+              <h2
+                id={id}
+                className="text-lg sm:text-xl font-bold text-blue-950 dark:text-blue-300 mt-8 mb-3 flex items-center gap-2 scroll-mt-20"
+                {...props}
+              >
+                {children}
+              </h2>
+            );
+          },
+          h3: ({ node, children, ...props }) => {
+            const id = props.id || getHeadingId(children);
+            return (
+              <h3
+                id={id}
+                className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100 mt-6 mb-2 scroll-mt-20"
+                {...props}
+              >
+                {children}
+              </h3>
+            );
+          },
+
           p: ({ node, ...props }) => (
             <p className="my-3 text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed" {...props} />
           ),

@@ -59,8 +59,17 @@ function AppContent({ isDarkMode, toggleTheme }) {
           path="/courses/:courseSlug/weeks/:weekNumber/lectures/:lectureNumber"
           element={<CoursePage isDarkMode={isDarkMode} onToggleTheme={toggleTheme} />}
         />
+        <Route
+          path="/courses/:courseSlug/weeks/:weekNumber/exam-notes"
+          element={<CoursePage isDarkMode={isDarkMode} onToggleTheme={toggleTheme} isExamNotesView={true} />}
+        />
+        <Route
+          path="/courses/:courseSlug/weeks/:weekNumber/consolidated-notes"
+          element={<CoursePage isDarkMode={isDarkMode} onToggleTheme={toggleTheme} isExamNotesView={true} />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
+
 
       {/* Hide the global footer when inside the course workspace */}
       {!isInsideCourse && <Footer />}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import {
   BookOpen,
   Clock,
@@ -10,26 +10,45 @@ import {
   PanelLeftClose,
   Sun,
   MessageSquare,
+  GraduationCap,
+  ArrowRight,
+  ArrowLeft,
 } from 'lucide-react';
 import {
   getCourseBySlug,
+  getWeekData,
   getLectureData,
   getAdjacentLectures,
+  hasWeekExamNotes,
 } from '../data/courses';
-import { loadLectureNote } from '../services/notesLoader';
+import {
+  loadLectureNote,
+  loadConsolidatedNote,
+} from '../services/notesLoader';
 import CourseSidebar from '../components/course/CourseSidebar';
 import Breadcrumbs from '../components/notes/Breadcrumbs';
 import NotesRenderer from '../components/notes/NotesRenderer';
 import LectureNavigation from '../components/notes/LectureNavigation';
 import FeedbackModal from '../components/feedback/FeedbackModal';
+import ConsolidatedExamNotesCard from '../components/notes/ConsolidatedExamNotesCard';
 
 /**
  * Split-Pane Course Workspace Page.
- * Left Panel: 12-week collapsible outline with lecture selection.
- * Right Panel: Dedicated distraction-free reading area rendering lecture revision notes.
+ * Left Panel: 12-week collapsible outline with lecture selection & consolidated exam notes links.
+ * Right Panel: Dedicated distraction-free reading area rendering lecture notes or consolidated exam notes.
  */
-export default function CoursePage({ isDarkMode, onToggleTheme }) {
+export default function CoursePage({
+  isDarkMode,
+  onToggleTheme,
+  isExamNotesView: propExamNotesView = false,
+}) {
   const { courseSlug, weekNumber: paramWeek, lectureNumber: paramLecture } = useParams();
+  const location = useLocation();
+
+  const isExamNotesView =
+    propExamNotesView ||
+    location.pathname.includes('/exam-notes') ||
+    location.pathname.includes('/consolidated-notes');
 
   // Find course
   const course = useMemo(() => getCourseBySlug(courseSlug), [courseSlug]);
@@ -38,16 +57,21 @@ export default function CoursePage({ isDarkMode, onToggleTheme }) {
   const activeWeekNumber = paramWeek ? parseInt(paramWeek, 10) : 1;
   const activeLectureNumber = paramLecture ? parseInt(paramLecture, 10) : 1;
 
-  // Retrieve active lecture and adjacent lecture metadata
-  const lectureData = useMemo(() => {
+  // Retrieve active week & lecture metadata
+  const weekData = useMemo(() => {
     if (!course) return null;
+    return getWeekData(course.slug, activeWeekNumber);
+  }, [course, activeWeekNumber]);
+
+  const lectureData = useMemo(() => {
+    if (!course || isExamNotesView) return null;
     return getLectureData(course.slug, activeWeekNumber, activeLectureNumber);
-  }, [course, activeWeekNumber, activeLectureNumber]);
+  }, [course, activeWeekNumber, activeLectureNumber, isExamNotesView]);
 
   const adjacent = useMemo(() => {
-    if (!course) return { prevLecture: null, nextLecture: null };
+    if (!course || isExamNotesView) return { prevLecture: null, nextLecture: null };
     return getAdjacentLectures(course.slug, activeWeekNumber, activeLectureNumber);
-  }, [course, activeWeekNumber, activeLectureNumber]);
+  }, [course, activeWeekNumber, activeLectureNumber, isExamNotesView]);
 
   // Notes content state
   const [noteContent, setNoteContent] = useState('');
@@ -63,7 +87,7 @@ export default function CoursePage({ isDarkMode, onToggleTheme }) {
   // Quick feedback modal state
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
-  // Fetch markdown notes when course or active lecture changes
+  // Fetch markdown notes when course, lecture, or exam-notes route changes
   useEffect(() => {
     if (!course) return;
 
@@ -71,7 +95,11 @@ export default function CoursePage({ isDarkMode, onToggleTheme }) {
     setIsLoading(true);
     setError(null);
 
-    loadLectureNote(course.slug, activeWeekNumber, activeLectureNumber)
+    const loadPromise = isExamNotesView
+      ? loadConsolidatedNote(course.slug, activeWeekNumber)
+      : loadLectureNote(course.slug, activeWeekNumber, activeLectureNumber);
+
+    loadPromise
       .then((content) => {
         if (isCurrent) {
           setNoteContent(content);
@@ -80,7 +108,7 @@ export default function CoursePage({ isDarkMode, onToggleTheme }) {
       })
       .catch((err) => {
         if (isCurrent) {
-          setError(`Unable to load lecture notes. (${err.message})`);
+          setError(`Unable to load notes. (${err.message})`);
           setIsLoading(false);
         }
       });
@@ -88,12 +116,12 @@ export default function CoursePage({ isDarkMode, onToggleTheme }) {
     return () => {
       isCurrent = false;
     };
-  }, [course, activeWeekNumber, activeLectureNumber]);
+  }, [course, activeWeekNumber, activeLectureNumber, isExamNotesView]);
 
-  // Scroll main reading area to top on lecture switch
+  // Scroll main reading area to top on view or lecture switch
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [activeWeekNumber, activeLectureNumber]);
+  }, [activeWeekNumber, activeLectureNumber, isExamNotesView]);
 
   // Fallback for non-existent course
   if (!course) {
@@ -120,8 +148,8 @@ export default function CoursePage({ isDarkMode, onToggleTheme }) {
     );
   }
 
-  // Fallback for non-existent lecture
-  if (!lectureData) {
+  // Fallback for non-existent lecture (only when in lecture view)
+  if (!isExamNotesView && !lectureData) {
     return (
       <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
         <div className="p-8 sm:p-12 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-subtle max-w-md mx-auto">
@@ -147,12 +175,21 @@ export default function CoursePage({ isDarkMode, onToggleTheme }) {
 
   const weekPadded = String(activeWeekNumber).padStart(2, '0');
   const lecturePadded = String(activeLectureNumber).padStart(2, '0');
+  const totalLecturesInWeek = weekData?.week?.lectures?.length || 5;
+  const isLastLectureOfWeek = !isExamNotesView && activeLectureNumber === totalLecturesInWeek;
 
-  const breadcrumbItems = [
-    { label: course.title, to: `/courses/${course.slug}` },
-    { label: `Week ${activeWeekNumber}` },
-    { label: `Lecture ${activeLectureNumber}` },
-  ];
+  // Construct context-aware breadcrumbs
+  const breadcrumbItems = isExamNotesView
+    ? [
+        { label: course.title, to: `/courses/${course.slug}` },
+        { label: `Week ${activeWeekNumber}`, to: `/courses/${course.slug}/weeks/${activeWeekNumber}/lectures/1` },
+        { label: 'Consolidated Exam Notes' },
+      ]
+    : [
+        { label: course.title, to: `/courses/${course.slug}` },
+        { label: `Week ${activeWeekNumber}` },
+        { label: `Lecture ${activeLectureNumber}` },
+      ];
 
   return (
     <div className="flex-1 flex flex-col w-full min-h-screen">
@@ -168,9 +205,16 @@ export default function CoursePage({ isDarkMode, onToggleTheme }) {
         </button>
 
         <div className="flex items-center gap-3">
-          <span className="text-xs font-bold text-blue-600 dark:text-blue-400">
-            W{weekPadded} · L{lecturePadded}
-          </span>
+          {isExamNotesView ? (
+            <span className="text-xs font-bold text-blue-600 dark:text-blue-400">
+              W{weekPadded} · Exam Notes
+            </span>
+          ) : (
+            <span className="text-xs font-bold text-blue-600 dark:text-blue-400">
+              W{weekPadded} · L{lecturePadded}
+            </span>
+          )}
+
           {onToggleTheme && (
             <button
               type="button"
@@ -196,6 +240,7 @@ export default function CoursePage({ isDarkMode, onToggleTheme }) {
               activeLectureNumber={activeLectureNumber}
               isDarkMode={isDarkMode}
               onToggleTheme={onToggleTheme}
+              isExamNotesView={isExamNotesView}
             />
           </div>
         )}
@@ -218,6 +263,7 @@ export default function CoursePage({ isDarkMode, onToggleTheme }) {
                 onCloseMobile={() => setIsMobileDrawerOpen(false)}
                 isDarkMode={isDarkMode}
                 onToggleTheme={onToggleTheme}
+                isExamNotesView={isExamNotesView}
               />
             </div>
           </div>
@@ -280,19 +326,40 @@ export default function CoursePage({ isDarkMode, onToggleTheme }) {
           <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8">
             {/* Quick reading metadata badge */}
             <div className="mb-4 flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
-              <span className="font-semibold px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200/60 dark:border-blue-900/60">
-                Week {weekPadded} · Lecture {lecturePadded}
-              </span>
-              <span className="text-slate-300 dark:text-slate-700" aria-hidden="true">·</span>
-              <div className="flex items-center gap-1">
-                <Clock size={13} className="text-slate-400" />
-                <span>~3-5 min revision read</span>
-              </div>
-              <span className="text-slate-300 dark:text-slate-700" aria-hidden="true">·</span>
-              <div className="flex items-center gap-1">
-                <FileText size={13} className="text-blue-500" />
-                <span>Notes only</span>
-              </div>
+              {isExamNotesView ? (
+                <>
+                  <span className="font-semibold px-2.5 py-1 rounded bg-blue-50 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 border border-blue-200/60 dark:border-blue-900/60 flex items-center gap-1.5">
+                    <GraduationCap size={14} className="text-blue-600 dark:text-blue-400" />
+                    <span>Week {weekPadded} · Consolidated Exam Notes</span>
+                  </span>
+                  <span className="text-slate-300 dark:text-slate-700" aria-hidden="true">·</span>
+                  <div className="flex items-center gap-1">
+                    <Clock size={13} className="text-slate-400" />
+                    <span>~15–20 min comprehensive revision</span>
+                  </div>
+                  <span className="text-slate-300 dark:text-slate-700" aria-hidden="true">·</span>
+                  <div className="flex items-center gap-1">
+                    <FileText size={13} className="text-blue-600 dark:text-blue-400" />
+                    <span>Combines all {totalLecturesInWeek} lectures</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <span className="font-semibold px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200/60 dark:border-blue-900/60">
+                    Week {weekPadded} · Lecture {lecturePadded}
+                  </span>
+                  <span className="text-slate-300 dark:text-slate-700" aria-hidden="true">·</span>
+                  <div className="flex items-center gap-1">
+                    <Clock size={13} className="text-slate-400" />
+                    <span>~3-5 min revision read</span>
+                  </div>
+                  <span className="text-slate-300 dark:text-slate-700" aria-hidden="true">·</span>
+                  <div className="flex items-center gap-1">
+                    <FileText size={13} className="text-blue-500" />
+                    <span>Lecture notes</span>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Clean Notes Card */}
@@ -303,16 +370,58 @@ export default function CoursePage({ isDarkMode, onToggleTheme }) {
                 error={error}
               />
 
-              {/* Next / Previous Lecture Navigation */}
-              <div className="mt-12">
-                <LectureNavigation
+              {/* End-of-week Consolidated Exam Notes Callout Card (shown on regular lecture pages) */}
+              {!isExamNotesView && hasWeekExamNotes(course.slug, activeWeekNumber) && (
+                <ConsolidatedExamNotesCard
                   courseSlug={course.slug}
-                  courseTitle={course.title}
-                  currentWeekNumber={activeWeekNumber}
-                  prevLecture={adjacent.prevLecture}
-                  nextLecture={adjacent.nextLecture}
+                  weekNumber={activeWeekNumber}
+                  isLastLecture={isLastLectureOfWeek}
+                  totalLecturesInWeek={totalLecturesInWeek}
                 />
-              </div>
+              )}
+
+              {/* Navigation Bar at Bottom */}
+              {isExamNotesView ? (
+                <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+                  {/* Return to week's lectures */}
+                  <Link
+                    to={`/courses/${course.slug}/weeks/${activeWeekNumber}/lectures/${totalLecturesInWeek}`}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors"
+                  >
+                    <ArrowLeft size={16} />
+                    <span>Back to Week {activeWeekNumber} Lecture Notes</span>
+                  </Link>
+
+                  {/* Proceed to Next Week or Start */}
+                  {activeWeekNumber < 12 ? (
+                    <Link
+                      to={`/courses/${course.slug}/weeks/${activeWeekNumber + 1}/lectures/1`}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-colors"
+                    >
+                      <span>Proceed to Week {activeWeekNumber + 1}</span>
+                      <ArrowRight size={16} />
+                    </Link>
+                  ) : (
+                    <Link
+                      to={`/courses/${course.slug}`}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-colors"
+                    >
+                      <span>Course Complete · Back to Start</span>
+                    </Link>
+                  )}
+                </div>
+              ) : (
+                /* Standard Next / Previous Lecture Navigation */
+                <div className="mt-12">
+                  <LectureNavigation
+                    courseSlug={course.slug}
+                    courseTitle={course.title}
+                    currentWeekNumber={activeWeekNumber}
+                    prevLecture={adjacent.prevLecture}
+                    nextLecture={adjacent.nextLecture}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </main>

@@ -9,11 +9,15 @@ import {
   Search,
   Sun,
   X,
+  GraduationCap,
 } from 'lucide-react';
+import { hasWeekExamNotes } from '../../data/courses';
+
 
 /**
  * Left Sidebar Navigation Panel for Course Workspace.
- * Displays all 12 collapsible weeks and their lecture notes.
+ * Displays all 12 collapsible weeks and their lecture notes,
+ * plus weekly consolidated exam notes.
  */
 export default function CourseSidebar({
   course,
@@ -22,7 +26,9 @@ export default function CourseSidebar({
   onCloseMobile,
   isDarkMode,
   onToggleTheme,
+  isExamNotesView = false,
 }) {
+
   // State for expanded weeks (auto-expands active week)
   const [expandedWeeks, setExpandedWeeks] = useState({ [activeWeekNumber || 1]: true });
   const [filterQuery, setFilterQuery] = useState('');
@@ -267,6 +273,45 @@ export default function CourseSidebar({
                         </Link>
                       );
                     })}
+
+                    {/* End of week: Consolidated Exam Notes Entry */}
+                    {hasWeekExamNotes(course.slug, week.weekNumber) && (
+                      <div className="pt-1 mt-1 border-t border-slate-200/60 dark:border-slate-800">
+                        <Link
+                          to={`/courses/${course.slug}/weeks/${week.weekNumber}/exam-notes`}
+                          onClick={() => {
+                            if (onCloseMobile) onCloseMobile();
+                          }}
+                          className={`group flex items-center justify-between px-2.5 py-2 rounded-lg text-xs transition-all ${
+                            isWeekActive && isExamNotesView
+                              ? 'bg-blue-600 text-white font-semibold shadow-sm'
+                              : 'text-slate-700 dark:text-slate-300 bg-blue-50/50 dark:bg-blue-950/20 hover:bg-blue-100/70 dark:hover:bg-blue-900/30 border border-blue-200/60 dark:border-blue-900/40'
+                          }`}
+                          title={`Week ${week.weekNumber} Consolidated Exam Notes`}
+                        >
+                          <div className="flex items-center gap-2 min-w-0 pr-1">
+                            <GraduationCap
+                              size={14}
+                              className={
+                                isWeekActive && isExamNotesView
+                                  ? 'text-white flex-shrink-0'
+                                  : 'text-blue-600 dark:text-blue-400 group-hover:scale-105 flex-shrink-0 transition-transform'
+                              }
+                            />
+                            <span className="truncate font-medium">Consolidated Exam Notes</span>
+                          </div>
+                          <span
+                            className={`text-[9px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded flex-shrink-0 ${
+                              isWeekActive && isExamNotesView
+                                ? 'bg-white/20 text-white'
+                                : 'bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300'
+                            }`}
+                          >
+                            Exam Prep
+                          </span>
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

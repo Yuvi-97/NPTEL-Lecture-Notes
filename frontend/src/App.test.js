@@ -73,3 +73,39 @@ test('loadLectureNote returns markdown content', async () => {
   expect(typeof note).toBe('string');
   expect(note).toContain('Lecture 1');
 });
+
+test('exam notes loaders and metadata helper work for all 12 weeks', async () => {
+  const fs = require('fs');
+  const path = require('path');
+  const { loadConsolidatedNote } = require('./services/notesLoader');
+  const { hasWeekExamNotes, getWeekExamNotesInfo } = require('./data/courses');
+
+  for (let week = 1; week <= 12; week++) {
+    expect(hasWeekExamNotes('logistics', week)).toBe(true);
+    const info = getWeekExamNotesInfo('logistics', week);
+    expect(info).not.toBeNull();
+    const padded = String(week).padStart(2, '0');
+    expect(info.title).toContain(`Week ${padded}`);
+
+    // Verify loader returns string in test environment
+    const content = await loadConsolidatedNote('logistics', week);
+    expect(typeof content).toBe('string');
+    expect(content).toContain('Consolidated Exam Notes');
+
+    // Verify physical file exists and contains full exam-oriented sections
+    const filePath = path.join(__dirname, 'notes', 'logistics', 'exam-notes', `week-${padded}.md`);
+    expect(fs.existsSync(filePath)).toBe(true);
+    const fileText = fs.readFileSync(filePath, 'utf-8');
+    expect(fileText.length).toBeGreaterThan(1000);
+    expect(fileText).toContain('Consolidated');
+    expect(fileText).toContain('Quick Revision Sheet');
+    // Ensure numerical formulas and practice question sections were removed
+    expect(fileText).not.toContain('Formulas and Numerical Methods');
+    expect(fileText).not.toContain('Practice Questions with Answer Key');
+  }
+
+  // Master course revision should no longer exist
+  const masterPath = path.join(__dirname, 'notes', 'logistics', 'exam-notes', 'complete-course-revision.md');
+  expect(fs.existsSync(masterPath)).toBe(false);
+});
+

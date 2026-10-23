@@ -858,3 +858,29 @@ export function getAdjacentLectures(courseSlug, weekNumber, lectureNumber) {
   const nextLecture = currentIndex < allLectures.length - 1 ? allLectures[currentIndex + 1] : null;
   return { prevLecture, nextLecture };
 }
+
+export function hasWeekExamNotes(courseSlug, weekNumber) {
+  const course = getCourseBySlug(courseSlug);
+  if (!course) return false;
+  const isLogistics = course.slug === 'logistics' || course.id === 'logistics';
+  const wNum = parseInt(weekNumber, 10);
+  return isLogistics && wNum >= 1 && wNum <= 12;
+}
+
+export function getWeekExamNotesInfo(courseSlug, weekNumber) {
+  const wNum = parseInt(weekNumber, 10);
+  if (!hasWeekExamNotes(courseSlug, wNum)) return null;
+  const course = getCourseBySlug(courseSlug);
+  const weekData = getWeekData(courseSlug, wNum);
+  const weekPadded = String(wNum).padStart(2, '0');
+
+  return {
+    courseSlug: course.slug,
+    courseTitle: course.title,
+    weekNumber: wNum,
+    weekTitle: weekData ? weekData.week.title : `Week ${wNum}`,
+    title: `Week ${weekPadded}: Consolidated Exam Notes`,
+    markdownPath: `logistics/exam-notes/week-${weekPadded}.md`,
+  };
+}
+

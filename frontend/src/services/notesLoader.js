@@ -54,3 +54,45 @@ export async function loadLectureNote(courseSlug, weekNumber, lectureNumber) {
   // Fallback: If not found or context fails, return a friendly fallback note
   return `# Lecture ${lectureNumber} — Placeholder Topic ${lectureNumber}\n\n> Note file (\`${courseSlug}/week-${weekPadded}/lecture-${lecturePadded}.md\`) was not found or is currently being prepared.\n\n## Content Pending\n\nNotes for this lecture will be added soon.`;
 }
+
+/**
+ * Loads consolidated exam notes for a given course and week.
+ * @param {string} courseSlug - e.g. 'logistics'
+ * @param {number|string} weekNumber - e.g. 1
+ * @returns {Promise<string>}
+ */
+export async function loadConsolidatedNote(courseSlug, weekNumber) {
+  const weekPadded = String(weekNumber).padStart(2, '0');
+  const cacheKey = `${courseSlug}-consolidated-week-${weekPadded}`;
+
+  if (noteCache.has(cacheKey)) {
+    return noteCache.get(cacheKey);
+  }
+
+  const candidatePaths = [
+    `./${courseSlug}/exam-notes/week-${weekPadded}.md`,
+    `./${courseSlug}/exam-notes/Week_${weekPadded}_Consolidated_Notes.md`,
+  ];
+
+  if (markdownContext) {
+    try {
+      const keys = markdownContext.keys();
+      for (const relPath of candidatePaths) {
+        if (keys.includes(relPath)) {
+          const fileAssetUrl = markdownContext(relPath);
+          const response = await fetch(fileAssetUrl);
+          if (response.ok) {
+            const text = await response.text();
+            noteCache.set(cacheKey, text);
+            return text;
+          }
+        }
+      }
+    } catch (err) {
+      console.warn(`Error loading consolidated note: ${err.message}`);
+    }
+  }
+
+  return `# Week ${weekNumber} — Consolidated Exam Notes\n\n> Consolidated exam notes for ${courseSlug} Week ${weekNumber} are currently being prepared.`;
+}
+
